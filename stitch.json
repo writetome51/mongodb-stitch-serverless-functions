@@ -1,8 +1,4 @@
 {
-  "app_id": "serverless-functions-rhfqi",
   "config_version": 20180301,
-  "name": "serverless-functions",
-  "location": "US-VA",
-  "deployment_model": "GLOBAL",
   "security": {}
 }

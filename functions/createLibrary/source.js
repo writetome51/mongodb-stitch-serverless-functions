@@ -11,13 +11,15 @@ exports = async function(doc) {
 	return getMessageFrom(result);
 
 
-	async function getUser(email, password){
+	async function getUser(email, password) {
 		return context.functions.execute("getUser", email, password);
 	}
 
 
 	async function updateOne(user) {
-		var users = context.functions.execute("getCollection", "image-library-app-user");
+		var collectionName = context.values.get("image-lib-app-collection");
+		var users = context.functions.execute("getCollection", collectionName);
+
 		try {
 			var result = await users.updateOne(
 				{email: user.email, password: user.password},
@@ -30,7 +32,7 @@ exports = async function(doc) {
 	}
 
 
-	async function getMessageFrom(result) {
+	function getMessageFrom(result) {
 		if (result['matchedCount'] === 1 && result['modifiedCount'] === 1) {
 			return {success: true};
 		}
@@ -39,4 +41,4 @@ exports = async function(doc) {
 	}
 
 
-}
+};

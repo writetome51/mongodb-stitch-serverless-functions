@@ -1,0 +1,11 @@
+{
+    "name": "local-userpass",
+    "type": "local-userpass",
+    "config": {
+        "confirmEmailSubject": "Email confirmation",
+        "emailConfirmationUrl": "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/serverless-functions-rhfqi/service/rest-api/incoming_webhook/confirm-email",
+        "resetPasswordSubject": "Reset password",
+        "resetPasswordUrl": "https://webhooks.mongodb-stitch.com/api/client/v2.0/app/serverless-functions-rhfqi/service/rest-api/incoming_webhook/reset-password"
+    },
+    "disabled": false
+}

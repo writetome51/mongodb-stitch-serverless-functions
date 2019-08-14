@@ -7,9 +7,9 @@ exports = async function(payload, response) {
 		{error: {message: "At least 1 of the required POST parameters is missing"}}
 	);
 
-	// encrypt body.password here before passing it to createUser()...
-
 	body['libraries'] = [];
+	body.password =  context.functions.execute("getEncryptedString", body.password);
+
 	var result = await context.functions.execute("createUser", body);
 	return JSON.stringify(result);
 

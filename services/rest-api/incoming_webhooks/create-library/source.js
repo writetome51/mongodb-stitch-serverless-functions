@@ -7,10 +7,10 @@ exports = async function(payload, response) {
 	if (!(body.email) || !(body.password) || !(body.library)) return JSON.stringify(
 		{error: "At least 1 of the required PATCH parameters is missing"}
 	);
-
-	// encrypt body.password here before passing it to createLibrary()...
-
 	if (!(body.library.images)) body.library.images = [];
+
+	body.password =  context.functions.execute("getEncryptedString", body.password);
+
 	var result = await context.functions.execute("createLibrary", body);
 	return JSON.stringify(result);
 

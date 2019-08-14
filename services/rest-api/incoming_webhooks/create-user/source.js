@@ -7,7 +7,7 @@ exports = async function(payload, response) {
     {error: {message: "At least 1 of the required POST parameters is missing"}}
   );
   
-  const newUser = {email: body.email, password: body.password};
+  const newUser = {email: body.email, password: body.password, libraries:[]};
   var result = await context.functions.execute("createUser", newUser);
   return JSON.stringify(result);
   
@@ -16,4 +16,4 @@ exports = async function(payload, response) {
     return context.functions.execute("secretInvalid", secret);
   }
   
-}
+};

@@ -8,6 +8,8 @@ exports = async function(payload, response) {
 	);
 
 	body['libraries'] = [];
+
+	//Actually, user's password should be encrypted BEFORE it's sent in the request.
 	body.password =  context.functions.execute("getEncryptedString", body.password);
 
 	var result = await context.functions.execute("createUser", body);

@@ -7,6 +7,8 @@ exports = async function(payload, response) {
 	);
 
 	const email = payload.query.email;
+
+	//Actually, user's password should be encrypted BEFORE it's sent in the request.
 	const password =  context.functions.execute("getEncryptedString", payload.query.password);
 
 	const result = await context.functions.execute("getUser", email, password);

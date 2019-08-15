@@ -1,6 +1,6 @@
 exports = async function(payload, response) {
 
-	const secret =  context.functions.execute("getDecryptedString", payload.query.secret);
+	const secret =  payload.query.secret;
 	if (invalid(secret)) return JSON.stringify({error: "invalid secret"});
 
 	if (!(payload.query.email) || !(payload.query.password)) return JSON.stringify(

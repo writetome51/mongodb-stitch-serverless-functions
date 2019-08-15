@@ -1,15 +1,14 @@
-// This function is the webhook's request handler.
 exports = async function(payload, response) {
 
-	if (invalid(payload.query.secret)) return JSON.stringify({error: "invalid secret"});
-	if (!(payload.query.email) || !(payload.query.password)) return JSON.stringify(
-		{error: "At least 1 of the required GET parameters is missing"}
-	);
+	const secret =  context.functions.execute("getDecryptedString", payload.query.secret);
+	if (invalid(secret)) return JSON.stringify({error: "invalid secret"});
 
+	if (!(payload.query.email) || !(payload.query.password)) return JSON.stringify(
+		{error: "These GET parameters are required:  'email', 'password'."}
+	);
 	const email = payload.query.email;
 
-	//Actually, user's password should be encrypted BEFORE it's sent in the request.
-	const password =  context.functions.execute("getEncryptedString", payload.query.password);
+	const password =  context.functions.execute("getDecryptedString", payload.query.password);
 
 	const result = await context.functions.execute("getUser", email, password);
 	return JSON.stringify(result);

@@ -5,11 +5,11 @@ exports = async function(payload, response) {
 
 	if (invalid(body.secret)) return JSON.stringify({error: "invalid secret"});
 	if (!(body.email) || !(body.password) || !(body.library)) return JSON.stringify(
-		{error: "At least 1 of the required PATCH parameters is missing"}
+		{error: {message: "These PATCH parameters are required:  'email', 'password', 'library' ."}}
 	);
 	if (!(body.library.images)) body.library.images = [];
 
-	body.password =  context.functions.execute("getEncryptedString", body.password);
+	body.password =  context.functions.execute("getHashString", body.password);
 
 	var result = await context.functions.execute("createLibrary", body);
 	return JSON.stringify(result);

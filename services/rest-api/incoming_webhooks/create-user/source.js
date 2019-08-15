@@ -4,13 +4,11 @@ exports = async function(payload, response) {
 
 	if (invalid(body.secret)) return JSON.stringify({error: {message: "invalid secret"}});
 	if (!(body.email) || !(body.password)) return JSON.stringify(
-		{error: {message: "At least 1 of the required POST parameters is missing"}}
+		{error: {message: "These POST parameters are required: 'email', 'password' ."}}
 	);
 
 	body['libraries'] = [];
-
-	//Actually, user's password should be encrypted BEFORE it's sent in the request.
-	body.password =  context.functions.execute("getEncryptedString", body.password);
+	body.password =  context.functions.execute("getHashString", body.password);
 
 	var result = await context.functions.execute("createUser", body);
 	return JSON.stringify(result);

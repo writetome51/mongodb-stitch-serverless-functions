@@ -1,21 +1,12 @@
 exports = async function(payload, response) {
-
-	var body = context.functions.execute("getRequestBody", payload);
-
-	if (invalid(body.secret)) return JSON.stringify({error: "invalid secret"});
-	if (!(body.email) || !(body.password) || !(body.library)) return JSON.stringify(
-		{error: {message: "These PATCH parameters are required:  'email', 'password', 'library' ."}}
+	var properties = context.functions.execute(
+		"getValidatedRequestBody_or_Error", payload, ['secret', 'email', 'password', 'library']
 	);
-	if (!(body.library.images)) body.library.images = [];
+	if (properties.error) return JSON.stringify(properties);
 
-	body.password =  context.functions.execute("getHashString", body.password);
+	if (!(properties.library.images)) properties.library.images = [];
+	properties.password = context.functions.execute("getHashString", properties.password);
 
-	var result = await context.functions.execute("createLibrary", body);
+	var result = await context.functions.execute("createLibrary", properties);
 	return JSON.stringify(result);
-
-
-	function invalid(secret) {
-		return context.functions.execute("secretInvalid", secret);
-	}
-
 };

@@ -1,11 +1,12 @@
-// This function is the webhook's request handler.
 exports = async function(payload, response) {
-	var body = context.functions.execute("getValidatedRequestBody_or_Error", payload);
-	if (body.error) return JSON.stringify(body);
+	var properties = context.functions.execute(
+		"getValidatedRequestBody_or_Error", payload, ['secret', 'email', 'password']
+	);
+	if (properties.error) return JSON.stringify(properties);
 
-	body['libraries'] = [];
-	body.password =  context.functions.execute("getHashString", body.password);
+	properties['libraries'] = [];
+	properties.password = context.functions.execute("getHashString", properties.password);
 
-	var result = await context.functions.execute("createUser", body);
+	const result = await context.functions.execute("createUser", properties);
 	return JSON.stringify(result);
 };

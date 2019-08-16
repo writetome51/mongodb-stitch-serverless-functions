@@ -1,6 +1,6 @@
 exports = async function(payload, response) {
 	var properties = context.functions.execute(
-		"getValidatedRequestBody_or_Error", payload, ['secret', 'email', 'password']
+		"getValidatedRequestProperties_or_Error", payload, ['secret', 'email', 'password']
 	);
 	if (properties.error) return JSON.stringify(properties);
 

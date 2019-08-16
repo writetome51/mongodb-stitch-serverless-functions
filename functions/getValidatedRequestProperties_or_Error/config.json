@@ -1,5 +1,5 @@
 {
-    "name": "getValidatedRequestBody_or_Error",
+    "name": "getValidatedRequestProperties_or_Error",
     "private": true,
     "run_as_system": true
 }

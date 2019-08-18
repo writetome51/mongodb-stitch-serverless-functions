@@ -1,9 +1,7 @@
-// If `payload.body` is valid, it's returned.
-// If not valid, error is returned.
+exports = function(payload, requiredProperties) {
 
-exports = async function(payload, requiredProperties) {
 	var properties;
-	if (payload.body) properties = context.functions.execute("getRequestBody", payload);
+	if (!(payload.query)) properties = context.functions.execute("getRequestBody", payload);
 	else properties = payload.query;
 
 	try {
@@ -23,8 +21,8 @@ exports = async function(payload, requiredProperties) {
 
 
 	function checkIfMissing(requiredProperties) {
-		if (anyAreMissing(requiredProperties)) new Error(
-			`These request properties are required: ${requiredProperties} .`
+		if (anyAreMissing(requiredProperties)) throw new Error(
+			`These request properties are required: ${requiredProperties.join(', ')} `
 		);
 
 

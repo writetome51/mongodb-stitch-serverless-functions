@@ -11,8 +11,27 @@ exports = function(payload, requiredProperties) {
 	}
 
 	if (invalid(properties.secret)) return {error: {message: "invalid secret"}};
-	delete properties.secret;
+	requiredProperties = getArrayWithoutValue('secret', requiredProperties);
+	removeAnyPropertiesNotRequired(properties);
+
 	return properties;
+
+
+	function removeAnyPropertiesNotRequired(properties){
+		for (let prop in properties){
+			if (!(requiredProperties.includes(prop))) delete properties[prop];
+		}
+	}
+
+
+	function getArrayWithoutValue(value, array) {
+		let newArr = [];
+		for (var i = 0;  i < array.length;  ++i){
+			if (!(array[i] === value)) newArr.push(array[i]);
+		}
+		return newArr;
+	}
+
 
 
 	function invalid(secret) {

@@ -1,7 +1,9 @@
 exports = function(payload, requiredProperties) {
 
 	var properties;
-	if (!(payload.query)) properties = context.functions.execute("getRequestBody", payload);
+	if (Object.keys(payload.query).length === 0){
+	  properties = context.functions.execute("getRequestBody", payload);
+	} 
 	else properties = payload.query;
 
 	try {

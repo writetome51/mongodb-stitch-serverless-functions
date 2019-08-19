@@ -1,11 +1,11 @@
 // Returns:  {success: true} | {error: {message: string}} | {error: any}
 
 exports = async function(doc) {
-	// doc = {email:string, password:string, library: object}.
+	// doc = {email:string, password:string, libraryName: string}.
 	var user = await getUser(doc.email, doc.password);
 	if (user.error) return user;
 
-	user.libraries = user.libraries.concat(doc.library); // Array.push() doesn't work.
+	user.libraries[doc.libraryName] = [];
 
 	var result = await updateOne(user);
 	return getMessageFrom(result);

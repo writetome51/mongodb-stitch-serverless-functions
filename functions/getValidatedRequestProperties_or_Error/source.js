@@ -19,8 +19,16 @@ exports = function(payload, requiredProperties) {
 
 	function removeAnyPropertiesNotRequired(properties){
 		for (let prop in properties){
-			if (!(requiredProperties.includes(prop))) delete properties[prop];
+			if (!(includes(prop, requiredProperties))) delete properties[prop];
 		}
+	}
+
+
+	function includes(value, array){
+		for (var i = 0;  i < array.length;  ++i){
+			if (array[i] === value) return true;
+		}
+		return false;
 	}
 
 

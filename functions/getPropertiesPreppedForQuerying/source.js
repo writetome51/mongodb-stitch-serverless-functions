@@ -1,4 +1,4 @@
-exports = async function(payload, requiredProperties) {
+exports = function(payload, requiredProperties) {
 	var properties = context.functions.execute(
 		"getValidatedRequestProperties_or_Error", payload, requiredProperties
 	);

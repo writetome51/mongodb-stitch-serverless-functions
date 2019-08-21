@@ -4,12 +4,16 @@ exports = async function(payload, response) {
 	);
 	if (properties.error) return JSON.stringify(properties);
 
-	properties.newPassword = context.functions.execute("getHashString", properties.newPassword);
-
-	if (properties.password === properties.newPassword) return JSON.stringify(
-		{error: {message: "The current password and the new password cannot match."}}
-	);
+	properties = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", properties);
+	if (properties.error) return JSON.stringify(properties);
 
 	var result = await context.functions.execute("changePassword", properties);
+
+	// Most likely the only db error will be that the requested user to modify was not found:
+	if ((result.error.matchedCount !== undefined) && result.error.matchedCount === 0) {
+		return {
+			error: {message: "The requested user was not found"}
+		};
+	}
 	return JSON.stringify(result);
 };

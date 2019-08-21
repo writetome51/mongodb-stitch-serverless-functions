@@ -5,6 +5,8 @@ exports = async function(payload, response) {
 	);
 	if (properties.error) return JSON.stringify(properties);
 
-	const result = await context.functions.execute("getUser", properties.email, properties.password);
+	var result = await context.functions.execute("getUser", properties.email, properties.password);
+	if (result === null) result = {error: {message: "No such user found"}};
+
 	return JSON.stringify(result);
 };

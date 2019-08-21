@@ -1,7 +1,7 @@
 // Returns:  {success: true} | {error: {message: string}} | {error: any}
 
 exports = async function(user) {
-	// user = {email:string, password:string, new_password:string}.
+	// user = {email:string, password:string, newPassword:string}.
 
 	var result = await updateOne(user);
 	return getMessageFrom(result);
@@ -14,7 +14,7 @@ exports = async function(user) {
 		try {
 			var result = await users.updateOne(
 				{email: user.email, password: user.password},
-				{$set: {password: user.new_password}}
+				{$set: {password: user.newPassword}}
 			);
 		} catch (e) {
 			return {error: e};

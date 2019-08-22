@@ -1,5 +1,5 @@
 {
-  "name": "image-lib-app-collection",
-  "value": "image-library-app-user",
-  "from_secret": false
+    "name": "image-lib-app-collection",
+    "value": "image-library-app-user",
+    "from_secret": false
 }

@@ -1,5 +1,5 @@
 {
-  "name": "encrypt-key",
-  "value": "encrypt-key",
-  "from_secret": true
+    "name": "encrypt-key",
+    "value": "encrypt-key",
+    "from_secret": true
 }

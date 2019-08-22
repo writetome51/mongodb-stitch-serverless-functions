@@ -6,6 +6,8 @@ exports = async function(doc) {
 	if (user.error) return user;
 
 	var library = user.libraries[doc.libraryName];
+
+	if (!(doc.image.src)) return {error: {message: "The submitted image must have a 'src' property"}};
 	library.push(doc.image); // library is just array of images.
 
 	var result = await updateOne(user, library);
@@ -24,7 +26,7 @@ exports = async function(doc) {
 		try {
 			var result = await users.updateOne(
 				{email: user.email, password: user.password},
-				{$set: {libraries[doc.libraryName]: library}}
+				getUpdatingObject('libraries.' + doc.libraryName, library)
 			);
 		} catch (e) {
 			return {error: e};
@@ -39,6 +41,15 @@ exports = async function(doc) {
 		}
 		if (result.error) return result;
 		else return {error: result};
+	}
+
+
+	// propertyToSet can contain dot-notation
+
+	function getUpdatingObject(propertyToSet, itsValue){
+		let obj = {$set:{}};
+		obj['$set'][propertyToSet] = itsValue;
+		return obj;
 	}
 
 

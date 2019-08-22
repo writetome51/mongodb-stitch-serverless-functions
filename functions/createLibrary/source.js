@@ -7,8 +7,8 @@ exports = async function(doc) {
 
 	user.libraries[doc.libraryName] = [];
 
-	var result = await updateOne(user);
-	return getMessageFrom(result);
+	var result = await updateLibraries(user);
+	return getMessageFromDocumentUpdateResult(result);
 
 
 	async function getUser(email, password) {
@@ -16,7 +16,7 @@ exports = async function(doc) {
 	}
 
 
-	async function updateOne(user) {
+	async function updateLibraries(user) {
 		var collectionName = context.values.get("image-lib-app-collection");
 		var users = context.functions.execute("getCollection", collectionName);
 
@@ -32,7 +32,7 @@ exports = async function(doc) {
 	}
 
 
-	function getMessageFrom(result) {
+	function getMessageFromDocumentUpdateResult(result) {
 		if (result['matchedCount'] === 1 && result['modifiedCount'] === 1) {
 			return {success: true};
 		}

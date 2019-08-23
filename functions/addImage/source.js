@@ -6,9 +6,11 @@ exports = async function(doc) {
 	if (!(doc.image.src)) return {error: {message: "The submitted image must have a 'src' property"}};
 
 	var user = await getUser(doc.email, doc.password);
-	if (user === null) return {error: {message: "No such user found"}};
+	if (!(user)) return {error: {message: "No such user found"}};
 	if (user.error) return user;
+
 	var library = user.libraries[doc.libraryName];
+	if (!(library)) return {error: {message: "No such library found"}};
 
 	library = library.concat(doc.image); // library is just array of images.
 

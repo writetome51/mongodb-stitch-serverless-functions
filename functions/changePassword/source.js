@@ -4,12 +4,11 @@ exports = async function(user) {
 	// user = {email:string, password:string, newPassword:string}.
 
 	var result = await updateOne(user);
-	return getMessageFrom(result);
+	return context.functions.execute("getMessageFromResult", result);
 
 
 	async function updateOne(user) {
-		var collectionName = context.values.get("image-lib-app-collection");
-		var users = context.functions.execute("getCollection", collectionName);
+		var users = context.functions.execute("getUsersCollection");
 
 		try {
 			var result = await users.updateOne(
@@ -20,15 +19,6 @@ exports = async function(user) {
 			return {error: e};
 		}
 		return result;
-	}
-
-
-	function getMessageFrom(result) {
-		if (result['matchedCount'] === 1 && result['modifiedCount'] === 1) {
-			return {success: true};
-		}
-		if (result.error) return result;
-		else return {error: result};
 	}
 
 

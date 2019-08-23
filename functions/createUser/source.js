@@ -1,6 +1,5 @@
 exports = async function(doc) {
-	var collectionName = context.values.get("image-lib-app-collection");
-	var users = context.functions.execute("getCollection", collectionName);
+	var users = context.functions.execute("getUsersCollection");
 
 	try {
 		var result = await users.insertOne(doc);

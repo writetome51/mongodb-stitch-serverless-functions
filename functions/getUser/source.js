@@ -2,7 +2,10 @@ exports = async function(email, password) {
 	var users = context.functions.execute("getUsersCollection");
 
 	try {
-		var doc = await users.findOne({email, password});
+		var doc = await users.findOne({email});
+		if (!(doc)) return {error: {message: "No such user found"}};
+		if (doc.password !== password) return {error: {message: "Incorrect password"}};
+
 	} catch (e) {
 		return {error: e};
 	}

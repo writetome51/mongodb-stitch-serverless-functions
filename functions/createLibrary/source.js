@@ -4,7 +4,6 @@ exports = async function(doc) {
 	// doc = {email:string, password:string, libraryName: string}.
 	
 	var user = await context.functions.execute("getUser", doc.email, doc.password);
-	if (user === null) return {error: {message: "No such user found"}};
 	if (user.error) return user;
 
 	user.libraries[doc.libraryName] = [];

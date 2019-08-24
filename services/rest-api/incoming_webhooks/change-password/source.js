@@ -11,7 +11,7 @@ exports = async function(payload, response) {
 
 	// Most likely the only db error will be that the requested user to modify was not found:
 	if ((result.error.matchedCount !== undefined) && result.error.matchedCount === 0) {
-		return JSON.stringify({error: {message: "The requested user was not found"}});
+		return JSON.stringify({error: {message: "No such user found"}});
 	}
 	return JSON.stringify(result);
 };

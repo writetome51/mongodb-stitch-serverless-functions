@@ -14,7 +14,7 @@ exports = async function(doc) {
 	library = library.concat(doc.image); // library is just array of images.
 
 	var result = await updateOne(user, library);
-	return context.functions.execute("getMessageFromResult", result);
+	return context.functions.execute("getMessageFromResult", result, 'update');
 
 
 	async function updateOne(user, library) {

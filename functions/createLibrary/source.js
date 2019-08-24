@@ -9,7 +9,7 @@ exports = async function(doc) {
 	user.libraries[doc.libraryName] = [];
 
 	var result = await updateLibraries(user);
-	return context.functions.execute("getMessageFromResult", result);
+	return context.functions.execute("getMessageFromResult", result, 'update');
 
 
 	async function updateLibraries(user) {

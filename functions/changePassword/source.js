@@ -8,7 +8,7 @@ exports = async function(properties) {
 	if (user.error) return user;
 
 	var result = await updateOne(user, properties.newPassword);
-	return context.functions.execute("getMessageFromResult", result);
+	return context.functions.execute("getMessageFromResult", result, 'update');
 
 
 	async function updateOne(user, newPassword) {

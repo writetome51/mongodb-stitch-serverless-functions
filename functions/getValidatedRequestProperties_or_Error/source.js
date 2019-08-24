@@ -1,25 +1,30 @@
 exports = function(payload, requiredProperties) {
 
 	var properties;
-	if (Object.keys(payload.query).length === 0){
+	if (objectEmpty(payload.query)){
 	  properties = context.functions.execute("getRequestBody", payload);
 	} 
 	else properties = payload.query;
 
 	try {
-		checkIfMissing(requiredProperties);
+		errorIfMissingRequiredProperties(properties, requiredProperties);
 	} catch (e) {
 		return {error: e};
 	}
 
 	if (invalid(properties.secret)) return {error: {message: "invalid secret"}};
 	requiredProperties = getArrayWithoutValue('secret', requiredProperties);
-	removeAnyPropertiesNotRequired(properties);
+	removeAnyPropertiesNotRequired(properties, requiredProperties);
 
 	return properties;
+	
+	
+	function objectEmpty(obj){
+	  return (Object.keys(obj).length === 0);
+	}
 
 
-	function removeAnyPropertiesNotRequired(properties){
+	function removeAnyPropertiesNotRequired(properties, requiredProperties){
 		for (let prop in properties){
 			if (!(includes(prop, requiredProperties))) delete properties[prop];
 		}
@@ -43,21 +48,20 @@ exports = function(payload, requiredProperties) {
 	}
 
 
-
 	function invalid(secret) {
 		return context.functions.execute("secretInvalid", secret);
 	}
 
 
-	function checkIfMissing(requiredProperties) {
-		if (anyAreMissing(requiredProperties)) throw new Error(
+	function errorIfMissingRequiredProperties(props, requiredProps) {
+		if (anyAreMissing(requiredProps, props)) throw new Error(
 			`These request properties are required: ${requiredProperties.join(', ')} `
 		);
 
 
-		function anyAreMissing(requiredProperties) {
-			for (let i = 0; i < requiredProperties.length; ++i) {
-				if (properties[requiredProperties[i]] === undefined) return true;
+		function anyAreMissing(requiredProps, props) {
+			for (let i = 0; i < requiredProps.length; ++i) {
+				if (props[requiredProps[i]] === undefined) return true;
 			}
 			return false;
 		}

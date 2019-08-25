@@ -1,4 +1,4 @@
-exports = async function(payload, response) {
+exports = async function(payload) {
 	var properties = context.functions.execute(
 		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'newPassword']
 	);

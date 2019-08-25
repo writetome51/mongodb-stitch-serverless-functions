@@ -13,26 +13,10 @@ exports = async function(doc) {
 
 	library = library.concat(doc.image); // library is just array of images.
 
-	var result = await updateOne(user, library);
+	var result = await context.functions.execute(
+		"updateProperty", user, ('libraries.' + doc.libraryName), library
+	);
 	return context.functions.execute("getMessageFromResult", result, 'update');
-
-
-	async function updateOne(user, library) {
-		var users = context.functions.execute("getUsersCollection");
-		var updatingObject = context.functions.execute(
-			"getUpdatingObject", ('libraries.' + doc.libraryName), library
-		);
-
-		try {
-			var result = await users.updateOne(
-				{email: user.email, password: user.password},
-				updatingObject
-			);
-		} catch (e) {
-			return {error: e};
-		}
-		return result;
-	}
 
 
 	async function getUser(email, password) {

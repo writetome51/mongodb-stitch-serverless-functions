@@ -1,6 +1,6 @@
-exports = async function(email, password){
+exports = async function(email, password) {
 
-  var result = await removeUserWith(email, password);
+	var result = await removeUserWith(email, password);
 	return context.functions.execute("getMessageFromResult", result, 'delete');
 
 
@@ -15,5 +15,5 @@ exports = async function(email, password){
 		return result;
 	}
 
-	
+
 };

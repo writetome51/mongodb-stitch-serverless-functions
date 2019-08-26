@@ -7,7 +7,7 @@ exports = async function(payload) {
 	properties = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", properties);
 	if (properties.error) return JSON.stringify(properties);
 
-	var result = await context.functions.execute("changePassword", properties);
+	var result = await context.functions.execute("updatePassword", properties);
 
 	return JSON.stringify(result);
 };

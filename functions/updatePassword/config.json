@@ -1,5 +1,5 @@
 {
-    "name": "changePassword",
+    "name": "updatePassword",
     "private": true,
     "run_as_system": true
 }

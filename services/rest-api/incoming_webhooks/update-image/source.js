@@ -5,7 +5,9 @@ exports = async function(payload) {
 	);
 	if (props.error) return JSON.stringify(props);
 
+	props.imageIndex += ''; // must be a string.
 	if (!(props.image.src)) return JSON.stringify({error: {message: "The image must have a 'src' property"}});
+
 	var result = await context.functions.execute(
 		"updateProperty", props, (`libraries.${props.libraryName}.${props.imageIndex}`), props.image
 	);

@@ -4,6 +4,10 @@ exports = async function(payload) {
 	);
 	if (props.error) return JSON.stringify(props);
 
+	if (props.propToUpdate === 'password') return JSON.stringify(
+		{error: {message: "You cannot change the password using this webhook"}}
+	);
+
 	// Remember, 'propToUpdate' can contain dot-notation.
 	var result = await context.functions.execute(
 		"updateProperty", props, props.propToUpdate, props.newValue

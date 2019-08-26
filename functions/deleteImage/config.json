@@ -1,0 +1,5 @@
+{
+    "name": "deleteImage",
+    "private": true,
+    "run_as_system": true
+}

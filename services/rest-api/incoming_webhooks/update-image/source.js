@@ -3,7 +3,7 @@ exports = async function(payload) {
 	var props = context.functions.execute(
 		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'libraryName', 'imageIndex', 'image']
 	);
-	if (props.error) return JSON.stringify(properties);
+	if (props.error) return JSON.stringify(props);
 
 	if (!(props.image.src)) return JSON.stringify({error: {message: "The image must have a 'src' property"}});
 	var result = await context.functions.execute(

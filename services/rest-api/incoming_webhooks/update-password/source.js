@@ -1,13 +1,15 @@
 exports = async function(payload) {
-	var properties = context.functions.execute(
+	var props = context.functions.execute(
 		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'newPassword']
 	);
-	if (properties.error) return JSON.stringify(properties);
+	if (props.error) return JSON.stringify(props);
 
-	properties = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", properties);
-	if (properties.error) return JSON.stringify(properties);
+	props = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", props);
+	if (props.error) return JSON.stringify(props);
 
-	var result = await context.functions.execute("updatePassword", properties);
+	var result = await context.functions.execute("updatePassword", props);
+	result = context.functions.execute("getMessageFromResult", result, 'update');
 
+	if (result.success) result = await context.functions.execute("getUser", props.email, props.newPassword);
 	return JSON.stringify(result);
 };

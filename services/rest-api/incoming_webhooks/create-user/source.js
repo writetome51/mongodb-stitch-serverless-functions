@@ -1,11 +1,14 @@
 exports = async function(payload) {
-	var properties = context.functions.execute(
+	var props = context.functions.execute(
 		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
 	);
-	if (properties.error) return JSON.stringify(properties);
+	if (props.error) return JSON.stringify(props);
 
-	properties['libraries'] = {};
+	props['libraries'] = {};
 
-	const result = await context.functions.execute("createUser", properties);
+	let result = await context.functions.execute("createUser", props);
+	if (result.success) result = await context.functions.execute(
+		"getUser", props.email, props.password
+	);
 	return JSON.stringify(result);
 };

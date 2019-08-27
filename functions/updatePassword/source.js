@@ -7,8 +7,7 @@ exports = async function(properties) {
 	var user = await context.functions.execute("getUser", properties.email, properties.password);
 	if (user.error) return user;
 
-	var result = await context.functions.execute(
+	return await context.functions.execute(
 		"updateProperty", user, "password", properties.newPassword
 	);
-	return context.functions.execute("getMessageFromResult", result, 'update');
 };

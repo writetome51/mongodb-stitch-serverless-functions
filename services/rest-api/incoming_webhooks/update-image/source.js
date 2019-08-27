@@ -13,5 +13,7 @@ exports = async function(payload) {
 	);
 
 	result = context.functions.execute("getMessageFromResult", result, 'update');
+	if (result.success) result = await context.functions.execute("getImage", props);
+
 	return JSON.stringify(result);
 };

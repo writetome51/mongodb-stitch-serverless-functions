@@ -9,5 +9,7 @@ exports = async function(payload) {
 		"updateProperty", props, ('libraries.' + props.libraryName), props.library
 	);
 	result = context.functions.execute("getMessageFromResult", result, 'update');
+	if (result.success) result = await context.functions.execute("getImageLibrary", props);
+
 	return JSON.stringify(result);
 };

@@ -13,5 +13,7 @@ exports = async function(payload) {
 		"updateProperty", props, props.propToUpdate, props.newValue
 	);
 	result = context.functions.execute("getMessageFromResult", result, 'update');
+	if (result.success) result = await context.functions.execute("getUser", props.email, props.password);
+
 	return JSON.stringify(result);
 };

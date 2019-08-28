@@ -8,7 +8,7 @@ exports = async function(user, property, newValue) {
 
 	try {
 		var result = await users.updateOne(
-			{email: user.email, password: user.password},
+			{email: user.email, password: user.password, loggedIn: true},
 			updatingObject
 		);
 	} catch (e) {

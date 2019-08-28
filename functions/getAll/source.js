@@ -5,4 +5,4 @@ exports = async function(){
   
    return docs;
  
-}
+};

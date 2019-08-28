@@ -10,6 +10,7 @@ exports = async function(payload) {
 	if (user.newValue.hasOwnProperty('password')) return JSON.stringify(
 		{error: {message: "You cannot change the password using this webhook"}}
 	);
+	var users = context.functions.execute("getUsersCollection");
 
 	try {
 		var result = await users.updateOne(

@@ -3,26 +3,23 @@
 
 exports = async function(payload) {
 	var user = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'newValue']
+		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'newEmail']
 	);
 	if (user.error) return JSON.stringify(user);
 
-	if (user.newValue.hasOwnProperty('password')) return JSON.stringify(
-		{error: {message: "You cannot change the password using this webhook"}}
-	);
 	var users = context.functions.execute("getUsersCollection");
 
 	try {
 		var result = await users.updateOne(
 			{email: user.email, password: user.password, loggedIn: true},
-			{$set: user.newValue}
+			{$set: {email: user.newEmail}}
 		);
 	} catch (e) {
 		return {error: e};
 	}
 	result = context.functions.execute("getMessageFromResult", result, 'update');
 	if (result.success) result = await context.functions.execute("getUser",
-		user.newValue.email, user.newValue.password
+		user.newEmail, user.password
 	);
 
 	return JSON.stringify(result);

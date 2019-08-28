@@ -6,7 +6,7 @@ exports = async function(payload) {
 		var result = await context.functions.execute("getUser", properties.email, properties.password);
 	}
 	catch (e) {
-		result = e;
+		result = {error: e};
 	}
 
 	return JSON.stringify(result);

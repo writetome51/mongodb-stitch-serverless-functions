@@ -10,6 +10,6 @@ exports = function(result, crudOperationThatProducedResult) {
 
 	if (result.error) return result;
 	else return {
-		error: {message: "Operation not performed.  At least 1 of the submitted parameters was incorrect"}
+		error: {message: "Operation not performed.  No document matched the request criteria"}
 	};
 };

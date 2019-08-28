@@ -26,12 +26,12 @@ exports = function(payload, requiredProperties) {
 
 	function removeAnyPropertiesNotRequired(properties, requiredProperties){
 		for (let prop in properties){
-			if (!(includes(prop, requiredProperties))) delete properties[prop];
+			if (!(found(prop, requiredProperties))) delete properties[prop];
 		}
 	}
 
 
-	function includes(value, array){
+	function found(value, array){
 		for (var i = 0;  i < array.length;  ++i){
 			if (array[i] === value) return true;
 		}
@@ -55,7 +55,7 @@ exports = function(payload, requiredProperties) {
 
 	function errorIfMissingRequiredProperties(props, requiredProps) {
 		if (anyAreMissing(requiredProps, props)) throw new Error(
-			`These request properties are required: ${requiredProperties.join(', ')} `
+			`These request properties are required: ${requiredProps.join(', ')} `
 		);
 
 

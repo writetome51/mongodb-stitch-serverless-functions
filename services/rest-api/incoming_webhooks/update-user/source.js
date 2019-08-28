@@ -1,19 +1,24 @@
+// The submitted 'newValue' must be an object.
+// It can contain as many key:value pairs to update as you want.
+
 exports = async function(payload) {
-	var props = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'propToUpdate', 'newValue']
+	var user = context.functions.execute(
+		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password', 'newValue']
 	);
-	if (props.error) return JSON.stringify(props);
+	if (user.error) return JSON.stringify(user);
 
-	if (props.propToUpdate === 'password') return JSON.stringify(
-		{error: {message: "You cannot change the password using this webhook"}}
-	);
-
-	// Remember, 'propToUpdate' can contain dot-notation.
-	var result = await context.functions.execute(
-		"updateProperty", props, props.propToUpdate, props.newValue
-	);
+	try {
+		var result = await users.updateOne(
+			{email: user.email, password: user.password, loggedIn: true},
+			{$set: user.newValue}
+		);
+	} catch (e) {
+		return {error: e};
+	}
 	result = context.functions.execute("getMessageFromResult", result, 'update');
-	if (result.success) result = await context.functions.execute("getUser", props.email, props.password);
+	if (result.success) result = await context.functions.execute("getUser",
+		user.newValue.email, user.newValue.password
+	);
 
 	return JSON.stringify(result);
 };

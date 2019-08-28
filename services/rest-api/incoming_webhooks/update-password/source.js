@@ -10,6 +10,8 @@ exports = async function(payload) {
 	var result = await context.functions.execute("updatePassword", props);
 	result = context.functions.execute("getMessageFromResult", result, 'update');
 
-	if (result.success) result = await context.functions.execute("getUser", props.email, props.newPassword);
+	if (result.success) result = await context.functions.execute("getUser",
+		props.email, props.newPassword
+	);
 	return JSON.stringify(result);
 };

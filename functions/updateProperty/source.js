@@ -12,7 +12,7 @@ exports = async function(user, property, newValue) {
 			updatingObject
 		);
 	} catch (e) {
-		return {error: e};
+		throw new Error(e.message);
 	}
 	return result;
 };

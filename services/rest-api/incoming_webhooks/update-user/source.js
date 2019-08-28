@@ -7,6 +7,10 @@ exports = async function(payload) {
 	);
 	if (user.error) return JSON.stringify(user);
 
+	if (user.newValue.hasOwnProperty('password')) return JSON.stringify(
+		{error: {message: "You cannot change the password using this webhook"}}
+	);
+
 	try {
 		var result = await users.updateOne(
 			{email: user.email, password: user.password, loggedIn: true},

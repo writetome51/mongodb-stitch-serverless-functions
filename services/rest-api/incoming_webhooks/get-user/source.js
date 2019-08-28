@@ -1,11 +1,13 @@
 exports = async function(payload) {
-
-	var properties = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
-	);
-	if (properties.error) return JSON.stringify(properties);
-
-	var result = await context.functions.execute("getUser", properties.email, properties.password);
+	try {
+		var properties = context.functions.execute(
+			"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
+		);
+		var result = await context.functions.execute("getUser", properties.email, properties.password);
+	}
+	catch (e) {
+		result = e;
+	}
 
 	return JSON.stringify(result);
 };

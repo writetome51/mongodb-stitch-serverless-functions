@@ -4,7 +4,7 @@ exports = async function(payload) {
 		['secret', 'email', 'password'],
 
 		async (props) => {
-			var result = await context.functions.execute("updateUser",
+			return await context.functions.execute("updateAndReturnUser",
 				props,
 				{loggedIn: false},
 				{
@@ -12,10 +12,6 @@ exports = async function(payload) {
 					$set: {loggedIn: true}
 				}
 			);
-			if (result.success) result = await context.functions.execute("getUser",
-				props.email, props.password
-			);
-			return result;
 		}
 	);
 };

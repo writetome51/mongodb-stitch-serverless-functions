@@ -3,7 +3,7 @@ exports = async function(payload) {
 		payload,
 		['secret', 'email', 'password'],
 
-		(users, props) => {
+		async (users, props) => {
 			var result = await users.updateOne(
 				{email: props.email, password: props.password, loggedIn: false},
 				{

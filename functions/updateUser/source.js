@@ -1,11 +1,9 @@
 exports = async function(user, uniqueSearchCriteria, updatingObject) {
-	var defaultSearchCriteria = {email: user.email, password: user.password};
+	var defaultSearchCriteria = {email: user.email, password: user.password, loggedIn: true};
 	modifyObject(defaultSearchCriteria, uniqueSearchCriteria);
 
 	var users = context.functions.execute("getUsersCollection");
-	var result = await users.updateOne(defaultSearchCriteria,  updatingObject);
-	
-	return result;
+	return await users.updateOne(defaultSearchCriteria,  updatingObject);
 
 	
 	function modifyObject(objectToModify, overwritingObject){

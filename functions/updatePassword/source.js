@@ -5,9 +5,8 @@ exports = async function(properties) {
 
 	// Make sure requested user exists and that provided password is correct:
 	var user = await context.functions.execute("getUser", properties.email, properties.password);
-	if (user.error) return user;
 
-	return await context.functions.execute("updateProperty",
-		user, "password", properties.newPassword
+	return await context.functions.execute("updateUser",
+		user, {}, {$set: {"password": properties.newPassword}}
 	);
 };

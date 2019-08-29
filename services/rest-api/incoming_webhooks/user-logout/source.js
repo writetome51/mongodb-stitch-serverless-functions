@@ -3,12 +3,10 @@ exports = async function(payload) {
 		payload,
 		['secret', 'email', 'password'],
 
-		async (users, props) => {
-			var result = await users.updateOne(
-				{email: user.email, password: user.password, loggedIn: true},
-				{$set: {loggedIn: false}}
+		async (props) => {
+			var result = await context.functions.execute("updateUser",
+				props, {}, {$set: {loggedIn: false}}
 			);
-
 			result = context.functions.execute("getMessageFromResult", result, 'update');
 			return JSON.stringify(result);
 		}

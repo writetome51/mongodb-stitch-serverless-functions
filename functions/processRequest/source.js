@@ -4,8 +4,7 @@ exports = async function(props, requiredProps, query) {
 		props = context.functions.execute("getPropertiesPreppedForQuerying",
 			props, requiredProps
 		);
-		var users = context.functions.execute("getUsersCollection");
-		result = await query(users, props);
+		result = await query(props);
 	}
 	catch (e) {
 		result = {error: e};

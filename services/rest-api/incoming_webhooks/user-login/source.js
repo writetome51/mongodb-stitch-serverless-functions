@@ -3,19 +3,20 @@ exports = async function(payload) {
 		payload,
 		['secret', 'email', 'password'],
 
-		async (users, props) => {
-			var result = await users.updateOne(
-				{email: props.email, password: props.password, loggedIn: false},
+		async (props) => {
+			var result = await context.functions.execute("updateUser",
+				props,
+				{loggedIn: false},
 				{
 					$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
 					$set: {loggedIn: true}
 				}
 			);
 			result = context.functions.execute("getMessageFromResult", result, 'update');
+
 			if (result.success) result = await context.functions.execute("getUser",
 				props.email, props.password
 			);
-
 			return result;
 		}
 	);

@@ -1,25 +1,20 @@
 exports = async function(payload) {
-	var user = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
+	context.functions.execute("processRequest", 
+		payload,
+		['secret', 'email', 'password'],
+
+		(users, props) => {
+			var result = await users.updateOne(
+				{email: props.email, password: props.password, loggedIn: false},
+				{
+					$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
+					$set: {loggedIn: true}
+				}
+			);
+			result = context.functions.execute("getMessageFromResult", result, 'update');
+			if (result.success) result = await context.functions.execute("getUser", props.email, props.password);
+			
+			return result;			
+		}
 	);
-	if (user.error) return JSON.stringify(user);
-
-	var users = context.functions.execute("getUsersCollection");
-
-	try {
-		var result = await users.updateOne(
-			{email: user.email, password: user.password, loggedIn: false},
-			{
-				$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
-				$set: {loggedIn: true}
-			}
-		);
-	} catch (e) {
-		return {error: e};
-	}
-
-	result = context.functions.execute("getMessageFromResult", result, 'update');
-	if (result.success) result = await context.functions.execute("getUser", user.email, user.password);
-
-	return JSON.stringify(result);
 };

@@ -1,6 +1,6 @@
 exports = async function(props, requiredProps, query) {
 	var result;
-	try{
+	try {
 		props = context.functions.execute("getPropertiesPreppedForQuerying",
 			props, requiredProps
 		);

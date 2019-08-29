@@ -1,5 +1,5 @@
 exports = async function(payload) {
-	context.functions.execute("processRequest", 
+	return await context.functions.execute("processRequest",
 		payload,
 		['secret', 'email', 'password'],
 
@@ -12,9 +12,11 @@ exports = async function(payload) {
 				}
 			);
 			result = context.functions.execute("getMessageFromResult", result, 'update');
-			if (result.success) result = await context.functions.execute("getUser", props.email, props.password);
-			
-			return result;			
+			if (result.success) result = await context.functions.execute("getUser",
+				props.email, props.password
+			);
+
+			return result;
 		}
 	);
 };

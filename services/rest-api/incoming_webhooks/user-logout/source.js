@@ -4,11 +4,9 @@ exports = async function(payload) {
 		['secret', 'email', 'password'],
 
 		async (props) => {
-			var result = await context.functions.execute("updateUser",
+			return await context.functions.execute("updateUser",
 				props, {}, {$set: {loggedIn: false}}
 			);
-			result = context.functions.execute("getMessageFromResult", result, 'update');
-			return JSON.stringify(result);
 		}
 	);
 };

@@ -3,10 +3,12 @@ exports = async function(user, uniqueSearchCriteria, updatingObject) {
 	modifyObject(defaultSearchCriteria, uniqueSearchCriteria);
 
 	var users = context.functions.execute("getUsersCollection");
-	return await users.updateOne(defaultSearchCriteria,  updatingObject);
+	var result = await users.updateOne(defaultSearchCriteria, updatingObject);
 
-	
-	function modifyObject(objectToModify, overwritingObject){
+	return context.functions.execute("getMessageFromResult", result, 'update');
+
+
+	function modifyObject(objectToModify, overwritingObject) {
 		Object.assign(objectToModify, overwritingObject);
 	}
 };

@@ -7,6 +7,6 @@ exports = async function(properties) {
 	var user = await context.functions.execute("getUser", properties.email, properties.password);
 
 	return await context.functions.execute("updateAndReturnUser",
-		user, {}, {$set: {"password": properties.newPassword}}
+		properties, {}, {$set: {"password": properties.newPassword}}
 	);
 };

@@ -1,6 +1,6 @@
 exports = async function(user, uniqueSearchCriteria, updatingObject) {
 
-	var result = context.functions.execute("updateUser",
+	var result = await context.functions.execute("updateUser",
 		user, uniqueSearchCriteria, updatingObject
 	);
 

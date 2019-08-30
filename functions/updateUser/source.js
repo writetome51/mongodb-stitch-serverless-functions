@@ -11,7 +11,7 @@ exports = async function(user, uniqueSearchCriteria, updatingObject) {
 	function mergeObjects(){
  		var res = {};
  		for(var i = 0;i<arguments.length;i++){
-			for(x in arguments[i]){
+			for(var x in arguments[i]){
 				res[x] = arguments[i][x];
 			}
  		}
@@ -19,6 +19,3 @@ exports = async function(user, uniqueSearchCriteria, updatingObject) {
 	}
 
 };
-
-
-

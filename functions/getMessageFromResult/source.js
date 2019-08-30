@@ -8,8 +8,5 @@ exports = function(result, crudOperationThatProducedResult) {
 		if (result['deletedCount'] === 1) return {success: true};
 	}
 
-	if (result.error) return result;
-	else return {
-		error: {message: "Operation not performed.  No document matched the request criteria"}
-	};
+	else throw new Error("Operation not performed.  No document matched the request criteria");
 };

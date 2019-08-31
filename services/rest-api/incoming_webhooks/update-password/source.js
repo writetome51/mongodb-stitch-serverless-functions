@@ -1,7 +1,7 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['secret', 'email', 'password', 'newPassword'],
+		['newPassword'],
 
 		async (props) => {
 			props = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", props);

@@ -1,6 +1,6 @@
 exports = async function(payload) {
 	var props = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
+		"getPropertiesPreppedForQuerying", payload, []
 	);
 	if (props.error) return JSON.stringify(props);
 

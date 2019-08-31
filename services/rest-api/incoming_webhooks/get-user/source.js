@@ -1,7 +1,7 @@
 exports = async function(payload) {
 	try {
 		var properties = context.functions.execute(
-			"getPropertiesPreppedForQuerying", payload, ['secret', 'email', 'password']
+			"getPropertiesPreppedForQuerying", payload, []
 		);
 		var result = await context.functions.execute("getUser", properties.email, properties.password);
 	}

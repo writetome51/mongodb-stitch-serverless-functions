@@ -1,7 +1,7 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['secret', 'email', 'password', 'libraryName', 'imageIndex', 'newValue'],
+		['libraryName', 'imageIndex', 'newValue'],
 
 		async (props) => {
 			props.imageIndex += ''; // must be a string.

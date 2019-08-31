@@ -5,7 +5,13 @@ exports = async function(user, uniqueSearchCriteria, updatingObject) {
 	var users = context.functions.execute("getUsersCollection");
 	var result = await users.updateOne(searchCriteria, updatingObject);
 
-	return context.functions.execute("getMessageFromResult", result, 'update');
+	try{
+		result = context.functions.execute("getMessageFromResult", result, 'update');
+	}
+	catch (e) {
+		throw new Error(e.message);
+	}
+	return result;
 
 
 	function mergeObjects(){

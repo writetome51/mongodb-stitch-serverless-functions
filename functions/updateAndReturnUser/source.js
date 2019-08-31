@@ -1,12 +1,8 @@
 exports = async function(user, uniqueSearchCriteria, updatingObject) {
-	try{
-		var result = await context.functions.execute("updateUser",
-			user, uniqueSearchCriteria, updatingObject
-		);
-	}
-	catch (e) {
-		throw new Error(e.message);
-	}
+
+	var result = await context.functions.execute("updateUser",
+		user, uniqueSearchCriteria, updatingObject
+	);
 
 	if (result.success) {
 		if (user.newPassword) user.password = user.newPassword; // Must be updated to get user.

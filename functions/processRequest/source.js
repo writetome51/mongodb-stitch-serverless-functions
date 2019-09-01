@@ -8,10 +8,10 @@ exports = async function(props, requiredProps, query) {
 			props, requiredProps
 		);
 		result = await query(props);
-	}
-	catch (e) {
-		return {error: e};
+
+	} catch (e) {
+		result = {error: {message: e.message}};
 	}
 
-	return result;
+	return JSON.stringify(result);
 };

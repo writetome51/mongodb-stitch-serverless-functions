@@ -10,7 +10,7 @@ exports = async function(props, requiredProps, query) {
 		result = await query(props);
 	}
 	catch (e) {
-		result = {error: e};
+		return JSON.stringify({error: e});
 	}
 
 	return JSON.stringify(result);

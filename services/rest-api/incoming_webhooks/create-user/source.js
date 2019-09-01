@@ -5,6 +5,7 @@ exports = async function(payload) {
 
 		async (props) => {
 			props['libraries'] = {};
+			props['loggedIn'] = true;
 			let result = await context.functions.execute("createUser", props);
 
 			if (result.success) return await context.functions.execute("getUser",

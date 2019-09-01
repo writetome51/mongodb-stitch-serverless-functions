@@ -1,11 +1,10 @@
 exports = async function(payload) {
+	return await context.functions.execute("processRequest",
+		payload,
+		['libraryName'],
 
-	var properties = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, ['libraryName']
+		async (props) => {
+			return await context.functions.execute("getImageLibrary", props);
+		}
 	);
-	if (properties.error) return JSON.stringify(properties);
-
-	var result = await context.functions.execute("getImageLibrary", properties);
-
-	return JSON.stringify(result);
 };

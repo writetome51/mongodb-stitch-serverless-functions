@@ -1,14 +1,16 @@
 exports = async function(payload) {
-	var props = context.functions.execute(
-		"getPropertiesPreppedForQuerying", payload, []
-	);
-	if (props.error) return JSON.stringify(props);
+	return await context.functions.execute("processRequest",
+		payload,
+		[],
 
-	props['libraries'] = {};
+		async (props) => {
+			props['libraries'] = {};
+			let result = await context.functions.execute("createUser", props);
 
-	let result = await context.functions.execute("createUser", props);
-	if (result.success) result = await context.functions.execute(
-		"getUser", props.email, props.password
+			if (result.success) return await context.functions.execute("getUser",
+				props.email, props.password
+			);
+			else throw new Error(result);
+		}
 	);
-	return JSON.stringify(result);
 };

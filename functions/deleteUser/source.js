@@ -10,7 +10,7 @@ exports = async function(email, password) {
 		try {
 			var result = await users.deleteOne({email, password, loggedIn: true});
 		} catch (e) {
-			return {error: e};
+			throw new Error(e.message);
 		}
 		return result;
 	}

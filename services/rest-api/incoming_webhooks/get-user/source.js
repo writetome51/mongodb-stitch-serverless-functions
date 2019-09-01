@@ -1,13 +1,10 @@
 exports = async function(payload) {
-	try {
-		var properties = context.functions.execute(
-			"getPropertiesPreppedForQuerying", payload, []
-		);
-		var result = await context.functions.execute("getUser", properties.email, properties.password);
-	}
-	catch (e) {
-		result = {error: e};
-	}
+	return await context.functions.execute("processRequest",
+		payload,
+		[],
 
-	return JSON.stringify(result);
+		async (props) => {
+			return await context.functions.execute("getUser", props.email, props.password);
+		}
+	);
 };

@@ -4,9 +4,14 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			return await context.functions.execute("updateUser",
-				props, {}, {$set: {loggedIn: false}}
-			);
+			try{
+				return await context.functions.execute("updateUser",
+					props, {}, {$set: {loggedIn: false}}
+				);
+			}
+			catch (e) {
+				throw new Error(e.message);
+			}
 		}
 	);
 };

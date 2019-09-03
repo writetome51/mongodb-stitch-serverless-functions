@@ -12,6 +12,7 @@ exports = async function(payload) {
 			props['images'] = [];
 
 			props = removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
+			delete props.password;
 
 			let result = await context.functions.execute("createLibrary", props);
 

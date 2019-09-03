@@ -1,9 +1,9 @@
 exports = async function(doc) {
-	var users = context.functions.execute("getUsersCollection");
+	var libraries = context.functions.execute("getLibrariesCollection");
 
 	doc['_id'] = BSON.ObjectId().toString(); // unique property, cannot ever change.
 
-	var result = await users.insertOne(doc);
+	var result = await libraries.insertOne(doc);
 
 	// If insert was successful, result will contain 'insertedId'.
 	if (result.insertedId) return {success: true};

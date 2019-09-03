@@ -1,6 +1,7 @@
-exports = async function(properties) {
-	var lib = await context.functions.execute("getImageLibrary", properties);
-	if (lib.error) return lib;
+exports = async function(props) {
+	var lib = await context.functions.execute("getImageLibrary",
+		props._user_id, props.libraryName
+	);
 
-	return lib[properties.imageIndex];
+	return lib.images[props.imageIndex];
 };

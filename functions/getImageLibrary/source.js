@@ -1,6 +1,18 @@
-exports = async function(properties) {
-	var user = await context.functions.execute("getUser", properties.email, properties.password);
-	if (user.error) return user;
+exports = async function(_user_id, libraryName) {
+	try {
+		var library = await __getLibrary();
+	} catch (e) {
+		throw new Error(e.message);
+	}
+	return library;
 
-	return user.libraries[properties.libraryName];
+
+	async function __getLibrary() {
+		var libraries = context.functions.execute("getLibrariesCollection");
+		var library = await libraries.findOne({_user_id, name: libraryName});
+
+		if (!(library)) throw new Error("No such library found");
+
+		return library;
+	}
 };

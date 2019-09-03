@@ -11,7 +11,7 @@ exports = async function(payload) {
 			props['_id'] = BSON.ObjectId().toString(); // unique property, cannot ever change.
 			props['images'] = [];
 
-			removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
+			props = removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
 
 			let result = await context.functions.execute("createLibrary", props);
 
@@ -27,6 +27,7 @@ exports = async function(payload) {
 		for (let prop in properties) {
 			if (!(found(prop, requiredProperties))) delete properties[prop];
 		}
+		return properties;
 
 
 		// Necessary because Array.includes() is not supported in MongoDB Stitch.

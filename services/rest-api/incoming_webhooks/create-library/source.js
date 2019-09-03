@@ -16,7 +16,7 @@ exports = async function(payload) {
 
 			let result = await context.functions.execute("createLibrary", lib);
 			if (result.success) return await context.functions.execute("getImageLibrary",
-				props._user_id, props.name
+				lib._user_id, lib.name
 			);
 			else throw new Error(result);
 		}

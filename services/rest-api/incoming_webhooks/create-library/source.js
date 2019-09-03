@@ -11,8 +11,9 @@ exports = async function(payload) {
 			props['_id'] = BSON.ObjectId().toString(); // unique property, cannot ever change.
 			props['images'] = [];
 
-			props = removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
-			//delete props.password;
+			//props = removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
+
+			props = ({_id, _user_id, name, images} = props); // only keep properties you want.
 
 			let result = await context.functions.execute("createLibrary", props);
 
@@ -20,26 +21,26 @@ exports = async function(payload) {
 				props._user_id, props.name
 			);
 			else throw new Error(result);
+
+
+			function removeAnyPropertiesNotRequired(properties, requiredProperties) {
+				Object.keys(properties).forEach((prop) => {
+					if (!(found(prop, requiredProperties))) delete properties[prop];
+				});
+				return properties;
+
+
+				// Necessary because Array.includes() is not supported in MongoDB Stitch.
+
+				function found(value, array) {
+					for (var i = 0; i < array.length; ++i) {
+						if (array[i] === value) return true;
+					}
+					return false;
+				}
+			}
 		}
 	);
-
-
-	function removeAnyPropertiesNotRequired(properties, requiredProperties) {
-		for (let prop in properties) {
-			if (!(found(String(prop), requiredProperties))) delete properties[String(prop)];
-		}
-		return properties;
-
-
-		// Necessary because Array.includes() is not supported in MongoDB Stitch.
-
-		function found(value, array) {
-			for (var i = 0; i < array.length; ++i) {
-				if (array[i] === value) return true;
-			}
-			return false;
-		}
-	}
 
 
 };

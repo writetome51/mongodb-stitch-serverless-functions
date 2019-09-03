@@ -9,6 +9,7 @@ exports = async function(payload) {
 			);
 			props['_user_id'] = user._id; // cannot ever change, or relation to user document is lost.
 			props['_id'] = BSON.ObjectId().toString(); // unique property, cannot ever change.
+			props['images'] = [];
 
 			removeAnyPropertiesNotRequired(props, ['_id', '_user_id', 'name', 'images']);
 

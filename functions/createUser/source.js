@@ -1,6 +1,8 @@
 exports = async function(doc) {
 	var users = context.functions.execute("getUsersCollection");
 
+	doc['_id'] = BSON.ObjectId().toString();
+
 	var result = await users.insertOne(doc);
 
 	// If insert was successful, result will contain 'insertedId'.

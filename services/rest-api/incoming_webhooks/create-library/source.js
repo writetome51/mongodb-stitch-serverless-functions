@@ -15,7 +15,7 @@ exports = async function(payload) {
 			lib['images'] = [];
 
 			let result = await context.functions.execute("createLibrary", lib);
-			if (result.success) return await context.functions.execute("getImageLibrary",
+			if (result.success) return await context.functions.execute("getLibrary",
 				lib._user_id, lib.name
 			);
 			else throw new Error(result);

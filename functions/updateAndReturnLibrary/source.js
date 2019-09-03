@@ -13,11 +13,15 @@ exports = async function(props) {
 
 	let result = await context.functions.execute('updateLibrary', library, updatingObject);
 
-	if (result.success){
+	if (result.success) {
 		if (updatingObject.$set.name) library.name = updatingObject.$set.name;
-		result = await context.functions.execute("getImageLibrary",
-			library._user_id, library.name
-		);
+		try {
+			result = await context.functions.execute("getLibrary",
+				library._user_id, library.name
+			);
+		} catch (e) {
+			result = {error: e};
+		}
 	}
 	return result;
 };

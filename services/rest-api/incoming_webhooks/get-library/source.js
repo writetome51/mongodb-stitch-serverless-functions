@@ -4,7 +4,7 @@ exports = async function(payload) {
 		['libraryName'],
 
 		async (props) => {
-			return await context.functions.execute("getImageLibrary", props);
+			return await context.functions.execute("getLibrary", props);
 		}
 	);
 };

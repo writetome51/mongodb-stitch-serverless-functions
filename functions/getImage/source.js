@@ -1,5 +1,5 @@
 exports = async function(props) {
-	var lib = await context.functions.execute("getImageLibrary",
+	var lib = await context.functions.execute("getLibrary",
 		props._user_id, props.name
 	);
 

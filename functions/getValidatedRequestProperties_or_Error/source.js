@@ -5,9 +5,12 @@ exports = function(payload, requiredProperties) {
 	  properties = context.functions.execute("getRequestBody", payload);
 	} 
 	else properties = payload.query;
-
-	errorIfMissingRequiredProperties(properties, requiredProperties);
-
+	try {
+		errorIfMissingRequiredProperties(properties, requiredProperties);
+	}
+	catch (e) {
+		throw new Error(e.message);
+	}
 	if (invalid(properties.secret)) throw new Error("invalid secret");
 	requiredProperties = getArrayWithoutValue('secret', requiredProperties);
 	removeAnyPropertiesNotRequired(properties, requiredProperties);

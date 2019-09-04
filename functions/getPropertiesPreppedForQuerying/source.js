@@ -3,6 +3,8 @@ exports = function(payload, requiredProperties) {
 		"getValidatedRequestProperties_or_Error", payload, requiredProperties
 	);
 
-	properties.password = context.functions.execute("getHashString", properties.password);
+	if (properties.password) {
+		properties.password = context.functions.execute("getHashString", properties.password);
+	}
 	return properties;
 };

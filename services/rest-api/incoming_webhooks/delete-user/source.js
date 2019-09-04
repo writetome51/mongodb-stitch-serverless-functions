@@ -4,9 +4,7 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			var user = await context.functions.execute("getUser", props.email, props.password);
-
-			return await context.functions.execute("deleteUser", user.email, user.password);
+			return await context.functions.execute("deleteUser", props.sessionID);
 		}
 	);
 };

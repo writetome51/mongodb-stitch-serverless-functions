@@ -1,7 +1,7 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['securityQuestion'],
+		['email', 'password', 'securityQuestion'],
 
 		async (props) => {
 			// props.securityQuestion: {question: string, answer: string}

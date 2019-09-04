@@ -1,37 +1,35 @@
 exports = function(payload, requiredProperties) {
 
 	var properties;
-	if (objectEmpty(payload.query)){
-	  properties = context.functions.execute("getRequestBody", payload);
-	} 
+	if (objectEmpty(payload.query)) {
+		properties = context.functions.execute("getRequestBody", payload);
+	}
 	else properties = payload.query;
-	try {
-		errorIfMissingRequiredProperties(properties, requiredProperties);
-	}
-	catch (e) {
-		throw new Error(e.message);
-	}
+
+	errorIfMissingRequiredProperties(properties, requiredProperties);
+
 	if (invalid(properties.secret)) throw new Error("invalid secret");
 	requiredProperties = getArrayWithoutValue('secret', requiredProperties);
-	removeAnyPropertiesNotRequired(properties, requiredProperties);
+	properties = removeAnyPropertiesNotRequired(properties, requiredProperties);
 
 	return properties;
-	
-	
-	function objectEmpty(obj){
-	  return (Object.keys(obj).length === 0);
+
+
+	function objectEmpty(obj) {
+		return (Object.keys(obj).length === 0);
 	}
 
 
-	function removeAnyPropertiesNotRequired(properties, requiredProperties){
-		for (let prop in properties){
+	function removeAnyPropertiesNotRequired(properties, requiredProperties) {
+		for (let prop in properties) {
 			if (!(found(prop, requiredProperties))) delete properties[prop];
 		}
+		return properties;
 	}
 
 
-	function found(value, array){
-		for (var i = 0;  i < array.length;  ++i){
+	function found(value, array) {
+		for (var i = 0; i < array.length; ++i) {
 			if (array[i] === value) return true;
 		}
 		return false;
@@ -40,7 +38,7 @@ exports = function(payload, requiredProperties) {
 
 	function getArrayWithoutValue(value, array) {
 		let newArr = [];
-		for (var i = 0;  i < array.length;  ++i){
+		for (var i = 0; i < array.length; ++i) {
 			if (!(array[i] === value)) newArr.push(array[i]);
 		}
 		return newArr;

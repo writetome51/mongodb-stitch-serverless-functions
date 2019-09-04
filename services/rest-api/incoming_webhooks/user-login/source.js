@@ -4,10 +4,10 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			return await context.functions.execute("loginUserAndReturnSessionID",
-				props,
-
+			var sessionID = await context.functions.execute("loginUserAndReturnSessionID",
+				props.email, props.password
 			);
+			return await context.functions.execute("getUser", sessionID);
 		}
 	);
 };

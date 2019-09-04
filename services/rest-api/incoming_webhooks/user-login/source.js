@@ -4,13 +4,9 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			return await context.functions.execute("updateAndReturnUser",
+			return await context.functions.execute("loginUserAndReturnSessionID",
 				props,
-				{loggedIn: false},
-				{
-					$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
-					$set: {loggedIn: true}
-				}
+
 			);
 		}
 	);

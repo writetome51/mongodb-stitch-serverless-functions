@@ -15,4 +15,5 @@ exports = async function(email, password) {
 		throw new Error(e.message);
 	}
 	if (result.success) return sessionID;
+	else throw new Error('User not found. The password may be incorrect');
 };

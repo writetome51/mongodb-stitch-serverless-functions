@@ -1,11 +1,16 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['newEmail'],
+		['password', 'email', 'newEmail'],
 
 		async (props) => {
 			return await context.functions.execute("updateAndReturnUser",
-				props, {}, {$set: {"email": props.newEmail}}
+				props,
+				{
+					email: props.email,
+					password: props.password
+				},
+				{$set: {"email": props.newEmail}}
 			);
 		}
 	);

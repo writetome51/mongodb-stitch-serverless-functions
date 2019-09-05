@@ -7,7 +7,7 @@ exports = async function(payload) {
 			var user = await context.functions.execute("getUser", props.sessionID);
 
 			var lib = {
-				_id:  BSON.ObjectId().toString(), // unique property, cannot ever change.
+				_id: BSON.ObjectId().toString(), // unique value, cannot ever change.
 				_user_id: user._id, // cannot ever change, or relation to user document is lost.
 				name: props.name,
 				images: []

@@ -5,10 +5,12 @@ exports = async function(props) {
 	if (!(result.success)) return result;
 
 	result = await __deleteLibraries(user._id);
-	result = context.functions.execute("getMessageFromResult", result, 'delete');
 
-	// If there were no libraries to delete, result will be undefined.
-	if (result.success || !(result)) return {success: true};
+	// If execution gets this far, the user was successfully deleted.
+	// At this point, if no libraries are deleted it means the user had no libraries.
+	// As long as result has a 'deletedCount', this was successful.
+	if (result['deletedCount'] !== undefined) return {success: true};
+
 	else return result;
 
 

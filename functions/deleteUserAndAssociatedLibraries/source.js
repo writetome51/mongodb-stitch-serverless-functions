@@ -12,7 +12,7 @@ exports = async function(props) {
 		var libraries = context.functions.execute("getLibrariesCollection");
 
 		try {
-			var result = await libraries.remove({_user_id});
+			var result = await libraries.deleteMany({_user_id});
 		} catch (e) {
 			throw new Error(e.message);
 		}

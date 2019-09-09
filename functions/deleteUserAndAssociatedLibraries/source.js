@@ -7,8 +7,8 @@ exports = async function(props) {
 	result = await __deleteLibraries(user._id);
 	result = context.functions.execute("getMessageFromResult", result, 'delete');
 
-	// If there were no libraries to delete, result will be null.
-	if (result.success || result === null) return {success: true};
+	// If there were no libraries to delete, result will be undefined.
+	if (result.success || !(result)) return {success: true};
 	else return result;
 
 

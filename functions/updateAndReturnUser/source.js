@@ -1,7 +1,7 @@
-exports = async function(user, uniqueSearchCriteria, updatingObject) {
+exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	try{
 		var result = await context.functions.execute("updateUser",
-			user.sessionID, uniqueSearchCriteria, updatingObject
+			sessionID, uniqueSearchCriteria, updatingObject
 		);
 	}
 	catch (e) {
@@ -9,7 +9,7 @@ exports = async function(user, uniqueSearchCriteria, updatingObject) {
 	}
 
 	if (result.success) {
-		result = await context.functions.execute("getUser", user.sessionID);
+		result = await context.functions.execute("getUser", sessionID);
 	}
 	return result;
 };

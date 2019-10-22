@@ -4,7 +4,7 @@ exports = async function(properties) {
 	// properties = {email: string, password:string, newPassword:string, sessionID: string}.
 
 	return await context.functions.execute("updateAndReturnUser",
-		properties,
+		properties.sessionID,
 		{
 			email: properties.email,
 			password: properties.password

@@ -7,7 +7,7 @@ exports = async function(payload) {
 			props = context.functions.execute("getPropertiesAfterComparingOldAndNewPasswords", props);
 
 			return await context.functions.execute("updateAndReturnUser",
-				props,
+				props.sessionID,
 				{
 					email: props.email,
 					password: props.password

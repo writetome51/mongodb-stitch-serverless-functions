@@ -5,7 +5,7 @@ exports = async function(payload) {
 
 		async (props) => {
 			return await context.functions.execute("updateAndReturnUser",
-				props,
+				props.sessionID,
 				{
 					email: props.email,
 					password: props.password

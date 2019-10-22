@@ -5,7 +5,7 @@ exports = async function(payload) {
 
 		async (props) => {
 			return await context.functions.execute("updateUser",
-				props, {}, {$set: {loggedIn: false}}
+				props.sessionID, {}, {$set: {loggedIn: false}}
 			);
 		}
 	);

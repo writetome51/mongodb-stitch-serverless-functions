@@ -4,10 +4,6 @@ exports = async function(payload) {
 		['email', 'password', 'securityQuestion'],
 
 		async (props) => {
-			// props.securityQuestion: {question: string, answer: string}
-			props.securityQuestion.answer = context.functions.execute("getHashString",
-				props.securityQuestion.answer
-			);
 
 			props['loggedIn'] = true;
 			props['lastLoggedIn'] = new Date();

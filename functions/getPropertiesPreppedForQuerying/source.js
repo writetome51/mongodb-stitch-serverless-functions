@@ -6,5 +6,11 @@ exports = function(payload, requiredProperties) {
 	if (properties.password) {
 		properties.password = context.functions.execute("getHashString", properties.password);
 	}
+	if (properties.securityQuestion.answer) {
+		properties.securityQuestion.answer = properties.securityQuestion.answer.toLowerCase();
+
+		properties.securityQuestion.answer =
+			context.functions.execute("getHashString", properties.securityQuestion.answer);
+	}
 	return properties;
 };

@@ -6,7 +6,7 @@ exports = function(payload, requiredProperties) {
 	if (properties.password) {
 		properties.password = context.functions.execute("getHashString", properties.password);
 	}
-	if (properties.securityQuestion.answer) {
+	if (properties.securityQuestion && properties.securityQuestion.answer) {
 		properties.securityQuestion.answer = properties.securityQuestion.answer.toLowerCase();
 
 		properties.securityQuestion.answer =

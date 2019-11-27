@@ -6,12 +6,11 @@ exports = async function(payload) {
 		async (props) => {
 
 			let user = await context.functions.execute("getUserByEmail", props.email);
-			if (user.securityQuestion.question !== props.securityQuestion.question) {
-				throw new Error(`This is not the correct user. The security questions don't match`);
-			}
-			if (user.securityQuestion.answer !== props.securityQuestion.answer) {
-				throw new Error(`Incorrect answer`);
-			}
+
+			context.functions.execute("validateSecurityQuestion",
+				user.securityQuestion, props.securityQuestion
+			);
+
 			let sessionID = await context.functions.execute("loginUserByEmailAndReturnSessionID",
 				props.email
 			);

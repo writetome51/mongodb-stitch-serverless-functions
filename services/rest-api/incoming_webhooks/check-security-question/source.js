@@ -10,9 +10,12 @@ exports = async function(payload) {
 				throw new Error(`This is not the correct user. The security questions don't match`);
 			}
 			if (user.securityQuestion.answer !== props.securityQuestion.answer) {
-				return {success: false};
+				throw new Error(`Incorrect answer`);
 			}
-			return {success: true};
+			let sessionID = await context.functions.execute("loginUserByEmailAndReturnSessionID",
+				props.email
+			);
+			return await context.functions.execute("getUser", sessionID);
 		}
 	);
 };

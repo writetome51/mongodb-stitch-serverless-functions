@@ -13,7 +13,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	return result;
 
 
-	function mergeObjects() {
+	function mergeObjects(obj1, obj2) {
 		var res = {};
 		for (var i = 0; i < arguments.length; i++) {
 			for (var x in arguments[i]) {

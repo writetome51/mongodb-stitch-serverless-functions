@@ -4,6 +4,13 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
+			return await context.functions.execute("updateUser",
+				props.sessionID,
+				{},
+				{$set: {'loggedIn': false}}
+			);
+
+			/*******************
 			var users = context.functions.execute("getUsersCollection");
 			var result = await users.updateOne(
 				{'sessionID': props.sessionID, 'loggedIn': true},
@@ -17,6 +24,7 @@ exports = async function(payload) {
 			}
 
 			return result;
+			 ***************/
 		}
 	);
 };

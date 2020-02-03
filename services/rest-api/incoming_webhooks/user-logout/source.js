@@ -4,9 +4,19 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			return await context.functions.execute("updateUser",
-				props.sessionID, {}, {$set: {loggedIn: false}}
+			var users = context.functions.execute("getUsersCollection");
+			var result = await users.updateOne(
+				{'sessionID': props.sessionID},
+				{$set: {'loggedIn': false}}
 			);
+
+			try {
+				result = context.functions.execute("getMessageFromResult", result, 'update');
+			} catch (e) {
+				throw new Error(e.message);
+			}
+
+			return result;
 		}
 	);
 };

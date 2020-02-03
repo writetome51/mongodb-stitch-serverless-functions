@@ -6,7 +6,7 @@ exports = async function(payload) {
 		async (props) => {
 			var users = context.functions.execute("getUsersCollection");
 			var result = await users.updateOne(
-				{'sessionID': props.sessionID},
+				{'sessionID': props.sessionID, 'loggedIn': true},
 				{$set: {'loggedIn': false}}
 			);
 

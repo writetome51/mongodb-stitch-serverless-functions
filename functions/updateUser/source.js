@@ -2,9 +2,6 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	var defaultSearchCriteria = {'sessionID': sessionID, 'loggedIn': true};
 	var searchCriteria = mergeObjects(defaultSearchCriteria, uniqueSearchCriteria);
 
-	//temp:
-	// throw new Error(Object.keys(searchCriteria).join(', '));
-
 	var users = context.functions.execute("getUsersCollection");
 	var result = await users.updateOne(searchCriteria, updatingObject);
 

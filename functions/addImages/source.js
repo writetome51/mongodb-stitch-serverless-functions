@@ -1,6 +1,11 @@
 exports = async function(props) {
 	// Make sure user exists and is logged in before continuing:
-	context.functions.execute("getUser", props.sessionID);
+	try {
+		context.functions.execute("getUser", props.sessionID);
+	}
+	catch (e) {
+		throw new Error(e.message);
+	}
 
 	var images = context.functions.execute("getImagesCollection");
 

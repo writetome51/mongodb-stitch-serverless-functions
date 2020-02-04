@@ -3,7 +3,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	var searchCriteria = mergeObjects(defaultSearchCriteria, uniqueSearchCriteria);
 
 	//temp:
-	throw new Error(Object.keys(searchCriteria).join(', '));
+	// throw new Error(Object.keys(searchCriteria).join(', '));
 
 	var users = context.functions.execute("getUsersCollection");
 	var result = await users.updateOne(searchCriteria, updatingObject);

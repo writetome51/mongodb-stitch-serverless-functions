@@ -1,5 +1,5 @@
 {
-    "name": "createLibrary",
+    "name": "createAndReturnNewLibrary",
     "private": true,
     "run_as_system": true
 }

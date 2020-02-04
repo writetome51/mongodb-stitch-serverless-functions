@@ -12,7 +12,7 @@ exports = function(images) {
 
 	images.forEach((image) => {
 		if (!(image._library_id) || (!(image._library_id.length))){
-			throw new Error('One of the submitted images is missing a "_library_id" ');
+			throw new Error(`One of the submitted images is missing a '_library_id' `);
 		}
 		image['_id'] = BSON.ObjectId().toString(); // unique value, cannot ever change.
 		imageDocuments.push(image);

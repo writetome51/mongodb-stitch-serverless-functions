@@ -5,7 +5,7 @@ exports = async function(payload) {
 
 		// props: { sessionID: string,  images: object[] }
 		async (props) => {
-			return await context.functions.execute("addImages", props.sessionID);
+			return await context.functions.execute("addImages", props);
 		}
 	);
 };

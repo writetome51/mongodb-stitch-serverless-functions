@@ -1,10 +1,13 @@
-exports = async function(doc) {
-	var libraries = context.functions.execute("getLibrariesCollection");
+exports = async function(props) {
+	var images = context.functions.execute("getImagesCollection");
 
-	var result = await libraries.insertOne(doc);
+	var imageDocs = context.functions.execute("getNewImageDocuments", props.images);
 
-	// If insert was successful, result will contain 'insertedId'.
-	if (result.insertedId) return {success: true};
+	var result = await images.insertMany(imageDocs);
 
+	// If insert was successful, result will contain 'insertedIds'.
+	if (result.insertedIds && (result.insertedIds.length === imageDocs.length)) {
+		return {success: true};
+	}
 	else throw new Error(result);
 };

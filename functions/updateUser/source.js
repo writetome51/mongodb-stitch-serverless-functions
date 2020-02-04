@@ -16,9 +16,12 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	function mergeObjects(obj1, obj2) {
 		var res = {};
 		let args = [obj1, obj2];
+
 		for (var i = 0; i < args.length; i++) {
-			let keys = Object.keys(args[i]);
-			for (var j = 0; j < keys.length; ++j) res[keys[j]] = args[i][keys[j]];
+			let obj = args[i];
+			let keys = Object.keys(obj);
+
+			for (var j = 0; j < keys.length; ++j) res[keys[j]] = obj[keys[j]];
 		}
 		return res;
 	}

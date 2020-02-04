@@ -1,5 +1,6 @@
 exports = function(images) {
 	let imageDocuments = [];
+
 	/*********
 	 each object in images:
 	 	{
@@ -8,7 +9,11 @@ exports = function(images) {
 		}
 		but no _id!!  The _id will be added below.
 	 **********/
+
 	images.forEach((image) => {
+		if (!(image._library_id) || (!(image._library_id.length))){
+			throw new Error('One of the submitted images is missing a "_library_id" ');
+		}
 		image['_id'] = BSON.ObjectId().toString(); // unique value, cannot ever change.
 		imageDocuments.push(image);
 	});

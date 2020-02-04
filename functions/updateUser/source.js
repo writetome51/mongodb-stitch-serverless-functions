@@ -3,7 +3,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	var searchCriteria = mergeObjects(defaultSearchCriteria, uniqueSearchCriteria);
 
 	//temp:
-	// throw new Error(searchCriteria['loggedIn'] + '  ' + searchCriteria['sessionID']);
+	throw new Error(Object.keys(searchCriteria).join(', '));
 
 	var users = context.functions.execute("getUsersCollection");
 	var result = await users.updateOne(searchCriteria, updatingObject);
@@ -18,10 +18,10 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 
 	function mergeObjects(obj1, obj2) {
 		var res = {};
-		for (var i = 0; i < arguments.length; i++) {
-			for (var x in arguments[i]) {
-				res[x] = arguments[i][x];
-			}
+		let args = [obj1, obj2];
+		for (var i = 0; i < args.length; i++) {
+			let keys = Object.keys(args[i]);
+			for (var j = 0; j < keys.length; ++j) res[keys[j]] = args[i][keys[j]];
 		}
 		return res;
 	}

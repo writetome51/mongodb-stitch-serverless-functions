@@ -5,24 +5,11 @@ exports = async function(payload) {
 
 		async (props) => {
 			// 'props': {
-			// 			  sessionID: string, name: (libraryName), images: array of indexes to remove
+			// 			  sessionID: string, name: (libraryName), images: array of _image_ids to remove
 			// 			}
 
-			// Give all images to be removed a unique value, which they can be pulled by:
-			var imagesToRemove = {};
-			var valueToRemove = "ToBePulled_" + new Date().toString(); // unique value.
+			//...code...
 
-			for (let i = 0; i < props.images.length; ++i) {
-				imagesToRemove['images.' + props.images[i]] = valueToRemove;
-			}
-			let updatingObject = {$set: imagesToRemove};
-			let user = await context.functions.execute('getUser', props.sessionID);
-			let library = {_user_id: user._id, name: props.name};
-
-			// perform the update and pull in one operation:
-			let result = await context.functions.execute('updateLibrary',
-				library, updatingObject, {images: valueToRemove}
-			);
 			if (result.success) {
 				try {
 					result = await context.functions.execute("getLibrary",

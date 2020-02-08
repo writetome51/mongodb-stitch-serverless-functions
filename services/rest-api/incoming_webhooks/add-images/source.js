@@ -3,7 +3,10 @@ exports = async function(payload) {
 		payload,
 		['images'],
 
-		// props: { sessionID: string,  images: object[] }
+		// props: {
+		// 	sessionID: string,
+		// 	images: {name, src, tags, date, description, location}[]
+		// }
 		async (props) => {
 			return await context.functions.execute("addImages", props);
 		}

@@ -5,7 +5,7 @@ exports = async function(payload) {
 
 		async (props) => {
 			// 'props': {
-			// 			  sessionID: string, name: (libraryName), images: array of _image_ids to remove
+			// 			  name: (libraryName), images: array of _image_ids to remove
 			// 			}
 
 			//...code...

@@ -1,25 +1,14 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['name', 'images'],
+		['imageNames'],
 
 		async (props) => {
-			// 'props': {
-			// 			  name: (libraryName), images: array of _image_ids to remove
-			// 			}
+			// 'props': { sessionID,  imageNames }
 
-			//...code...
+			var user = await context.functions.execute("getUser", props.sessionID);
 
-			if (result.success) {
-				try {
-					result = await context.functions.execute("getLibrary",
-						library._user_id, library.name
-					);
-				} catch (e) {
-					result = {error: e};
-				}
-			}
-			return result;
+			return await context.functions.execute("removeImages", user._id, props.imageNames);
 		}
 	);
 };

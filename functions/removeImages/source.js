@@ -1,7 +1,7 @@
 exports = async function(_user_id, imageNames) {
 
 	var result = await __deleteImages();
-	return context.functions.execute("getMessageFromResult", result, 'delete');
+	return context.functions.execute("getMessageFromCRUDResult", result, 'delete');
 
 
 	async function __deleteImages() {

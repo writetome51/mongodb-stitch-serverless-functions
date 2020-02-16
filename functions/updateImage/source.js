@@ -1,4 +1,4 @@
-// 'props': {sessionID: string,  name: string,  changes: object}
+// changes: object
 
 exports = async function(_user_id, name, changes) {
 

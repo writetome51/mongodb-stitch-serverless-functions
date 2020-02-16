@@ -8,9 +8,6 @@ exports = async function(_user_id, imagesToChange) {
 	// 	  }
 	 *******************/
 
-	//tmp:
-	// return {'test': true};
-
 	for (let i = 0; i < imagesToChange.length; ++i) {
 		let imageToChange = imagesToChange[i];
 

@@ -10,7 +10,7 @@ exports = async function(email, password) {
 		}
 	);
 	try {
-		result = context.functions.execute("getMessageFromResult", result, 'update');
+		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
 	} catch (e) {
 		throw new Error(e.message);
 	}

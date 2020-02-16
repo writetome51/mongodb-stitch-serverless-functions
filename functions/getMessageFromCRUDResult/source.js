@@ -4,7 +4,7 @@ exports = function(result, crudOperationThatProducedResult) {
 			return {success: true};
 		}
 	}
-	if (crudOperationThatProducedResult === 'delete') {
+	else if (crudOperationThatProducedResult === 'delete') {
 		if (result['deletedCount'] > 0) return {success: true};
 	}
 

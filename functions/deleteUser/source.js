@@ -1,7 +1,7 @@
 exports = async function(props) {
 
 	var result = await removeUser();
-	return context.functions.execute("getMessageFromResult", result, 'delete');
+	return context.functions.execute("getMessageFromCRUDResult", result, 'delete');
 
 
 	async function removeUser() {

@@ -1,5 +1,5 @@
 {
-    "name": "getHashString",
+    "name": "getMessageFromInsertResult",
     "private": true,
     "run_as_system": true
 }

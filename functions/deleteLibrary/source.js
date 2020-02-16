@@ -1,7 +1,7 @@
 exports = async function(_user_id, libraryName) {
 
 	var result = await __deleteLibrary();
-	return context.functions.execute("getMessageFromResult", result, 'delete');
+	return context.functions.execute("getMessageFromCRUDResult", result, 'delete');
 
 
 	async function __deleteLibrary() {

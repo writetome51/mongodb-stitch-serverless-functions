@@ -2,9 +2,9 @@
 
 exports = async function(_user_id, name, changes) {
 
-	let searchCriteria = {_user_id, name};
+	let searchCriteria = {'_user_id': _user_id, 'name': name};
 
-	let updatingObject = {$set: changes};
+	let updatingObject = {'$set': changes};
 
 	// These two properties must never be changed:
 	delete updatingObject['$set']['_user_id'];

@@ -7,7 +7,7 @@ exports = async function(payload) {
 			// 'props': {sessionID: string,  name: string,  changes: object}
 			// The properties in 'changes' can contain dot-notation.
 
-			return await context.functions.execute("updateAndReturnImage", props);
+			return await context.functions.execute("updateImage", props);
 		}
 	);
 };

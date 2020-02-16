@@ -1,14 +1,15 @@
-// imagesToChange: ImageToChange[]
-// 	  ImageToChange = {
-// 	       name: name of image being updated;
-//         changes: object
-// 		   (The properties in 'changes' can contain dot-notation)
-// 	  }
-//
-
 exports = async function(_user_id, imagesToChange) {
+	/********************
+	// imagesToChange: ImageToChange[]
+	// 	  ImageToChange = {
+	// 	       name: name of image being updated;
+	//         changes: object
+	// 		   (The properties in 'changes' can contain dot-notation)
+	// 	  }
+	 *******************/
+
 	//tmp:
-	return {'test': true};
+	// return {'test': true};
 
 	for (let imageToChange of imagesToChange) {
 

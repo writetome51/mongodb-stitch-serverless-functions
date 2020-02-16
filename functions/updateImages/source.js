@@ -11,10 +11,11 @@ exports = async function(_user_id, imagesToChange) {
 	//tmp:
 	// return {'test': true};
 
-	for (let imageToChange of imagesToChange) {
+	for (let i = 0; i < imagesToChange.length; ++i) {
+		let imageToChange = imagesToChange[i];
 
 		await context.functions.execute("updateImage",
-			_user_id, imageToChange.name, imageToChange.changes
+			_user_id, imageToChange['name'], imageToChange['changes']
 		);
 	}
 	return {success: true};

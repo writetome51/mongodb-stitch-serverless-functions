@@ -1,5 +1,5 @@
 {
-    "name": "deleteUserAndAssociatedLibraries",
+    "name": "deleteUserAndAssociatedDocuments",
     "private": true,
     "run_as_system": true
 }

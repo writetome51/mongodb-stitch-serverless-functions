@@ -7,6 +7,8 @@
 //
 
 exports = async function(_user_id, imagesToChange) {
+	//tmp:
+	return {'test': true};
 
 	for (let imageToChange of imagesToChange) {
 

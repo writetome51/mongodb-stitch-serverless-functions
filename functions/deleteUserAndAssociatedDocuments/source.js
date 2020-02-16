@@ -18,7 +18,7 @@ exports = async function(props) {
 				throw new Error(e.message);
 			}
 			// At this point, if no documents are deleted it means the user had no documents
-			// in that collection.  This is unsuccessful only if result doesn't have a
+			// in that collection.  Result is unsuccessful only if it doesn't have a
 			// 'deletedCount' property:
 			if (result['deletedCount'] === undefined) throw new Error(
 				`Delete operation in collection ${collectionName} unsuccessful`

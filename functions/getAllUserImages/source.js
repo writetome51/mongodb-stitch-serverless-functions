@@ -9,9 +9,6 @@ exports = async function(_user_id) {
 
 	async function __getAllUserImages() {
 		var imagesCollection = context.functions.execute("getImagesCollection");
-		var images = await imagesCollection.find({_user_id}).toArray();
-
-		if (!(images)) throw new Error("No images found");
-		return images;
+		return await imagesCollection.find({_user_id}).toArray();
 	}
 };

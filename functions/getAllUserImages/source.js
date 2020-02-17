@@ -13,7 +13,7 @@ exports = async function(_user_id, batchSize, batchNumber) {
 		let [startIndex, endIndex] = get_startIndex_endIndex(batchSize, batchNumber);
 		if ((startIndex + 1) > images.length) throw new Error(`Batch does not exist`);
 
-		return _arraySlice(startIndex, endIndex, images);
+		return _arraySlice(startIndex, endIndex + 1, images);
 	}
 
 

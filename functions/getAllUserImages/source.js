@@ -11,11 +11,8 @@ exports = async function(_user_id, batchSize, batchNumber) {
 		var imagesCollection = context.functions.execute("getImagesCollection");
 		let howManyToSkip = (batchNumber - 1) * batchSize;
 
-		let docs = imagesCollection.find({_user_id}).limit(1).toArray();
-		return {docsLength: docs.length};
-		//return get_ids(docs);
-		//		return await imagesCollection.find({_user_id}).skip(howManyToSkip).sort({name:
-		//		1}).limit(batchSize).toArray();
+		let docs = await imagesCollection.find({_user_id}).limit(1).toArray();
+		return {'docsLength': String(docs.length)};
 	}
 
 

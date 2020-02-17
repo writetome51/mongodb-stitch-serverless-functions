@@ -10,10 +10,19 @@ exports = async function(_user_id, batchSize, batchNumber) {
 	async function __getAllUserImages() {
 		var imagesCollection = context.functions.execute("getImagesCollection");
 		let howManyToSkip = (batchNumber - 1) * batchSize;
-		let _ids = imagesCollection.find({_user_id}).toArray();
-		return _ids.map((doc) => doc._id);
+
+		let docs = imagesCollection.find({_user_id}).toArray();
+		return get_ids(docs);
 //		return await imagesCollection.find({_user_id}).skip(howManyToSkip).sort({name:
 //		1}).limit(batchSize).toArray();
+	}
+
+
+	function get_ids(array) {
+		for (var i = 0, _ids = []; i < array.length; ++i) {
+			_ids[i] = array[i]['_id'];
+		}
+		return _ids;
 	}
 
 

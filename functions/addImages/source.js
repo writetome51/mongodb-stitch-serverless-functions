@@ -7,9 +7,10 @@ exports = async function(props) {
 	var result = await images.insertMany(imageDocs);
 
 	return exec("getMessageFromInsertResult", result, imageDocs.length);
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
+	}
+
 };
-
-
-function exec(funcName, ...args) {
-	return context.functions.execute(funcName, ...args);
-}

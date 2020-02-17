@@ -10,7 +10,7 @@ exports = async function(_user_id, batchSize, batchNumber) {
 	async function __getAllUserImages() {
 		var imagesCollection = context.functions.execute("getImagesCollection");
 
-		let docs = await imagesCollection.find({_user_id}).toArray();
+		let docs = await imagesCollection.find({_user_id}).sort({_id: 1}).toArray();
 		let _ids = get_ids(docs);
 		let startIndex = (batchNumber - 1) * batchSize;
 		return await imagesCollection.find({_user_id, _id: {$gte: _ids[startIndex]}})

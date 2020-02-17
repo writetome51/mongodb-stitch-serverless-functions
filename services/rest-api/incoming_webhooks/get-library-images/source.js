@@ -3,7 +3,7 @@
 exports = async function(payload) {
 	return await context.functions.execute("processRequest",
 		payload,
-		['name'],
+		['name', 'batchSize', 'batchNumber'],
 
 		async (props) => {
 			var user = await context.functions.execute("getUser", props.sessionID);

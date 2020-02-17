@@ -1,5 +1,5 @@
 exports = function(result, intendedNumberDocumentsCreated) {
-	if (result.insertedId ||
+	if ((result.insertedId && intendedNumberDocumentsCreated === 1) ||
 		(result.insertedIds && (result.insertedIds.length === intendedNumberDocumentsCreated))
 	) {
 		return {success: true};

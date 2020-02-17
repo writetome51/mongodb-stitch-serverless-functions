@@ -3,8 +3,5 @@ exports = async function(doc) {
 
 	var result = await libraries.insertOne(doc);
 
-	// If insert was successful, result will contain 'insertedId'.
-	if (result.insertedId) return {success: true};
-
-	else throw new Error(result);
+	return context.functions.execute("getMessageFromInsertResult", result, 1);
 };

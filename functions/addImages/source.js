@@ -7,30 +7,29 @@ exports = async function(props) {
 	var result = await images.insertMany(imageDocs);
 
 	return getMessageFromResult(result, imageDocs.length);
-
-
-	async function getUser(sessionID){
-		return await exec("getUser", sessionID);
-	}
-
-
-	function getNewImageDocuments(images, user_id){
-		return exec("getNewImageDocuments", images, user_id);
-	}
-
-
-	function getImagesCollection(){
-		return exec("getImagesCollection");
-	}
-
-
-	function getMessageFromResult(result, intendedNumberCreated){
-		return exec("getMessageFromInsertResult", result, intendedNumberCreated);
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
-
 };
+
+
+async function getUser(sessionID) {
+	return await exec("getUser", sessionID);
+}
+
+
+function getNewImageDocuments(images, user_id) {
+	return exec("getNewImageDocuments", images, user_id);
+}
+
+
+function getImagesCollection() {
+	return exec("getImagesCollection");
+}
+
+
+function getMessageFromResult(result, intendedNumberCreated) {
+	return exec("getMessageFromInsertResult", result, intendedNumberCreated);
+}
+
+
+function exec(funcName, ...args) {
+	return context.functions.execute(funcName, ...args);
+}

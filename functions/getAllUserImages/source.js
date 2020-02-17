@@ -11,7 +11,8 @@ exports = async function(_user_id, batchSize, batchNumber) {
 		var imagesCollection = context.functions.execute("getImagesCollection");
 		let howManyToSkip = (batchNumber - 1) * batchSize;
 		return await imagesCollection.find({_user_id})
-			.sort({name: 1}).skip(howManyToSkip).limit(batchSize).toArray();
+			.sort({name: 1}).skip(howManyToSkip)
+			.limit(batchSize).toArray();
 	}
 
 
@@ -26,6 +27,8 @@ exports = async function(_user_id, batchSize, batchNumber) {
 	}
 
 
+	/********************
+
 	function getBatch(batchNumber, batchSize, arr) {
 		let start = (batchNumber - 1) * batchSize;
 		let end = start + batchSize - 1;
@@ -33,7 +36,7 @@ exports = async function(_user_id, batchSize, batchNumber) {
 	}
 
 
-	export function _arraySlice(start, end, arr) {
+	function _arraySlice(start, end, arr) {
 		let len = arr.length;
 		let range = [];
 
@@ -60,5 +63,6 @@ exports = async function(_user_id, batchSize, batchNumber) {
 
 	}
 
+	 ***********************/
 
 };

@@ -7,7 +7,6 @@ exports = async function(payload) {
 		// batchSize = number of images to be returned from a request.
 		// batchNumber = which batch of {batchSize} images to return,
 		// i.e., if batchNumber is 1 and batchSize is 20, images 1 thru 20 are returned.
-		// If batchNumber is changed to 2, images 21 thru 40 are returned.
 
 		async (props) => {
 			var user = await context.functions.execute("getUser", props.sessionID);
@@ -15,7 +14,7 @@ exports = async function(payload) {
 			props.batchNumber = Number(props.batchNumber);
 			props.batchSize = Number(props.batchSize);
 
-			return await context.functions.execute("getAllUserImages",
+			return await context.functions.execute("getUserImagesBatch",
 				user._id, props.batchSize, props.batchNumber
 			);
 		}

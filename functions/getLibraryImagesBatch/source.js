@@ -27,7 +27,7 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 							unorderedImages.splice(ii, 1); // removes that item.
 							brk = true;
 						} catch (e) {
-							throw new Error('Error triggered inside the if block');
+							throw new Error(e);
 						}
 
 					}

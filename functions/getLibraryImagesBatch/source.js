@@ -22,13 +22,13 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 			let ordered = [];
 			for (let i = 0; i < _image_ids.length; ++i) {
 
-				for (let ii = 0, brk = false; (ii < unorderedImages.length) && !(brk); ++ii) {
+				for (let ii = 0; ii < unorderedImages.length; ++ii) {
 
 					if (unorderedImages[ii]['_id'] === _image_ids[i]) {
 						ordered[i] = unorderedImages[ii];
 
 						unorderedImages.splice(ii, 1); // removes that item.
-						brk = true;
+						break;
 					}
 				}
 			}

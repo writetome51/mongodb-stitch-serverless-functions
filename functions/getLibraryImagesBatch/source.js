@@ -10,7 +10,11 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 	async function getImagesInProperOrder() {
 		let imagesCollection = context.functions.execute("getImagesCollection");
 		let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
-		return getOrdered(unorderedImages);
+
+		//temp:
+		return unorderedImages;
+
+		//return getOrdered(unorderedImages);
 
 
 		function getOrdered(unorderedImages) {

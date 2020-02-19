@@ -1,19 +1,6 @@
 exports = async function(email, password) {
-	var users = context.functions.execute("getUsersCollection");
-	var sessionID = BSON.ObjectId().toString();
-
-	var result = await users.updateOne(
+	return await context.functions.execute("loginUserBySubmittedCriteriaAndReturnSessionID",
 		{email, password},
-		{
-			$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
-			$set: {loggedIn: true, sessionID}
-		}
+		'User not found.  The password may be incorrect'
 	);
-	try {
-		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
-	} catch (e) {
-		throw new Error(e.message);
-	}
-	if (result.success) return sessionID;
-	else throw new Error('User not found. The password may be incorrect');
 };

@@ -2,21 +2,8 @@
 // after answering security question.
 
 exports = async function(email) {
-	var users = context.functions.execute("getUsersCollection");
-	var sessionID = BSON.ObjectId().toString();
-
-	var result = await users.updateOne(
+	return await context.functions.execute("loginUserBySubmittedCriteriaAndReturnSessionID",
 		{email},
-		{
-			$currentDate: {lastLoggedIn: true}, // sets 'lastLoggedIn' to current date-time.
-			$set: {loggedIn: true, sessionID}
-		}
+		'User not found.  The email may be incorrect'
 	);
-	try {
-		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
-	} catch (e) {
-		throw new Error(e.message);
-	}
-	if (result.success) return sessionID;
-	else throw new Error('User not found. The email may be incorrect');
 };

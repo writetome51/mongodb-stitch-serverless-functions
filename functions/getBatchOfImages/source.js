@@ -1,4 +1,8 @@
 exports = async function(getImagesFunction, batchSize, batchNumber) {
+
+	batchNumber = Number(batchNumber);
+	batchSize = Number(batchSize);
+
 	try{
 		var images = await getImagesFunction();
 	}

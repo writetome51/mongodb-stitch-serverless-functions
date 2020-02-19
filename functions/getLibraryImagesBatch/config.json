@@ -1,5 +1,5 @@
 {
-    "name": "getLibraryImages",
+    "name": "getLibraryImagesBatch",
     "private": true,
     "run_as_system": true
 }

@@ -9,7 +9,7 @@ exports = async function(payload) {
 			var user = await context.functions.execute("getUser", props.sessionID);
 			var library = await context.functions.execute("getLibrary", user._id, props.name);
 
-			return await context.functions.execute("getLibraryImages",
+			return await context.functions.execute("getLibraryImagesBatch",
 				library._image_ids, props.batchSize, props.batchNumber
 			);
 		}

@@ -1,4 +1,6 @@
-exports = function(images, batchSize, batchNumber) {
+exports = async function(getImagesFunction, batchSize, batchNumber) {
+
+	let images = await getImagesFunction();
 
 	let [startIndex, endIndex] = get_startIndex_endIndex(batchSize, batchNumber);
 	if ((startIndex + 1) > images.length) throw new Error(`Batch does not exist`);

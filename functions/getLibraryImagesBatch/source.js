@@ -28,7 +28,7 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 							break;
 						}
 						catch (e) {
-							throw new Error(e.message);
+							throw new Error('Error triggered inside the if block');
 						}
 
 					}

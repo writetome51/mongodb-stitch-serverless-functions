@@ -11,6 +11,8 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 		let imagesCollection = context.functions.execute("getImagesCollection");
 		let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
 
+		// Still not clear why, but the Cursor method .toArray() doesn't return an array that
+		// contains the .splice() method.  This fixes that:
 		unorderedImages = makeSureItsArray(unorderedImages);
 		return getOrdered(unorderedImages);
 
@@ -23,19 +25,14 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 				for (let ii = 0, brk = false; (ii < unorderedImages.length) && !(brk); ++ii) {
 
 					if (unorderedImages[ii]['_id'] === _image_ids[i]) {
-
 						ordered[i] = unorderedImages[ii];
-						try {
-							unorderedImages.splice(ii, 1); // removes that item.
-						} catch (e) {
-							throw new Error(e);
-						}
+
+						unorderedImages.splice(ii, 1); // removes that item.
 						brk = true;
 					}
-
 				}
-
 			}
+
 			return ordered;
 		}
 

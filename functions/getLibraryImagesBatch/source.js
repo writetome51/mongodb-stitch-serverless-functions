@@ -25,7 +25,9 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 
 						ordered[i] = unorderedImages[ii];
 						try {
-							unorderedImages.splice(ii, 1); // removes that item.
+							ordered.push(1, 2);
+							ordered.splice(1);
+							// unorderedImages.splice(ii, 1); // removes that item.
 						} catch (e) {
 							throw new Error(e);
 						}

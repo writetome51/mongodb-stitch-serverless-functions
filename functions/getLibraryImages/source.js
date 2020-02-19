@@ -1,4 +1,4 @@
-exports = async function(_image_ids) {
+exports = async function(_image_ids, batchSize, batchNumber) {
 	try {
 		var images = await __getLibraryImages();
 	} catch (e) {

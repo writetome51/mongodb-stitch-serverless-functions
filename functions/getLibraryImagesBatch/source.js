@@ -11,6 +11,7 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 		let imagesCollection = context.functions.execute("getImagesCollection");
 		let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
 
+		unorderedImages = makeSureItsArray(unorderedImages);
 		return getOrdered(unorderedImages);
 
 
@@ -25,9 +26,7 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 
 						ordered[i] = unorderedImages[ii];
 						try {
-							ordered.push(1, 2);
-							ordered.splice(1);
-							// unorderedImages.splice(ii, 1); // removes that item.
+							unorderedImages.splice(ii, 1); // removes that item.
 						} catch (e) {
 							throw new Error(e);
 						}
@@ -38,6 +37,11 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 
 			}
 			return ordered;
+		}
+
+
+		function makeSureItsArray(arr) {
+			return [].concat(arr);
 		}
 
 	}

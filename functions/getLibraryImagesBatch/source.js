@@ -4,7 +4,12 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 
 		async function() {
 			let imagesCollection = context.functions.execute("getImagesCollection");
-			return await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
+			let images = await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
+
+			// The array returned must be in same order as _image_ids.
+			return _image_ids.map(
+				(_id) => images.find((image) => image._id === _id)
+			);
 		},
 
 		batchSize,

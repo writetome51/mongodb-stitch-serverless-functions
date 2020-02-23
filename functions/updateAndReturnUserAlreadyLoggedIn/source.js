@@ -1,6 +1,6 @@
 exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	try{
-		var result = await context.functions.execute("updateUser",
+		var result = await context.functions.execute("updateUserAlreadyLoggedIn",
 			sessionID, uniqueSearchCriteria, updatingObject
 		);
 	}

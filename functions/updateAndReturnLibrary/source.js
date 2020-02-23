@@ -7,10 +7,6 @@ exports = async function(props) {
 
 	let updatingObject = {$set: props.changes};
 
-	// These two properties must never be changed:
-	delete updatingObject['$set']['_user_id'];
-	delete updatingObject['$set']['_id'];
-
 	let result = await context.functions.execute('updateLibrary', library, updatingObject);
 
 	if (result.success) {

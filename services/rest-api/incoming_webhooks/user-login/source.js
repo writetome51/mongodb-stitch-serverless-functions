@@ -1,5 +1,4 @@
-exports = async function(payload, response) {
-	response.setHeader("Access-Control-Allow-Origin", "*");
+exports = async function(payload) {
 
 	return await context.functions.execute("processRequest",
 		payload,
@@ -12,4 +11,5 @@ exports = async function(payload, response) {
 			return await context.functions.execute("getUser", sessionID);
 		}
 	);
+
 };

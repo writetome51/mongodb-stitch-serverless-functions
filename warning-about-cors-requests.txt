@@ -1,0 +1,11 @@
+I'm writing this just in case I forget in the future:
+
+To send requests to the Rest API created here, you must use a
+CORS Proxy.  Response headers containing 'Access-Control-Allow-Origin': '*'
+do not work here.  I spent nearly a whole day trying to make it work.
+This has to do with 'pre-flight requests', which use the OPTIONS request method.
+OPTIONS is not supported in the MongoDB Stitch environment.  Using this
+API in my image-libraries Angular project has been frustrating because Angular's
+HttpClient service will first send 'pre-flight requests' without you even
+knowing it.  And they will fail every time, because they use OPTIONS, and
+OPTIONS isn't supported in the Stitch environment.  Anyway, use a CORS Proxy.

@@ -1,4 +1,6 @@
-exports = async function(payload) {
+exports = async function(payload, response) {
+	response.setHeader("Access-Control-Allow-Origin", "*");
+
 	return await context.functions.execute("processRequest",
 		payload,
 		['email', 'password'],

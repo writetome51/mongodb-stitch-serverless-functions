@@ -7,13 +7,11 @@ exports = async function(props, requiredProps, uniqueCode) {
 		props = context.functions.execute("getPropertiesPreppedForQuerying",
 			props, requiredProps
 		);
-		if (props.error) return JSON.stringify(props);
-
 		result = await uniqueCode(props);
 
 	} catch (e) {
 		result = {error: {message: e.message}};
 	}
 
-	return JSON.stringify(result);
+	return result;
 };

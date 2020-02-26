@@ -1,5 +1,5 @@
 exports = function(payload, requiredProperties) {
-	var properties = getValidatedRequestProperties_or_Error(payload, requiredProperties);
+	var properties = getValidatedRequestProperties(payload, requiredProperties);
 
 	if (properties.password) properties.password = getHash(properties.password);
 
@@ -11,8 +11,8 @@ exports = function(payload, requiredProperties) {
 	return properties;
 
 
-	function getValidatedRequestProperties_or_Error(payload, requiredProperties) {
-		return exec("getValidatedRequestProperties_or_Error", payload, requiredProperties);
+	function getValidatedRequestProperties(payload, requiredProperties) {
+		return exec("getValidatedRequestProperties", payload, requiredProperties);
 	}
 
 

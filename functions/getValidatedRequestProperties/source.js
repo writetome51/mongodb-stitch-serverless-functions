@@ -6,18 +6,14 @@ exports = function(payload, requiredProperties) {
 	}
 	else properties = payload.query;
 
-	try {
-		errorIfMissingRequiredProperties(properties, requiredProperties);
+	errorIfMissingRequiredProperties(properties, requiredProperties);
 
-		if (invalid(properties.secret)) return {error: {message: "Invalid secret"}};
-		requiredProperties = getArrayWithoutValue('secret', requiredProperties);
-		properties = removeAnyPropertiesNotRequired(properties, requiredProperties);
+	if (invalid(properties.secret)) throw new Error("Invalid secret");
+	requiredProperties = getArrayWithoutValue('secret', requiredProperties);
 
-		return properties;
-	}
-	catch (e) {
-		return {error: {message: e.message}};
-	}
+	properties = removeAnyPropertiesNotRequired(properties, requiredProperties);
+
+	return properties;
 
 
 	function objectEmpty(obj) {

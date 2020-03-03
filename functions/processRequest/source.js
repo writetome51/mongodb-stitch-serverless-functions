@@ -13,5 +13,17 @@ exports = async function(props, requiredProps, uniqueCode) {
 		result = {error: {message: e.message}};
 	}
 
-	return result;
+	// We convert it to string before converting it back to an object because
+	// it solves a problem in how MongoDB returns numbers and dates in its JSON.
+	// For example, in a document, if you set a property 'dataTotal' to a value
+	// of 2, the returned JSON will store 'dataTotal' like this:
+	//
+	//  "dataTotal": {"$numberInt": "2"}
+	//
+	// Calling JSON.stringify() on the object will convert the value {"$numberInt": "2"}
+	// to 2, which is all we need.
+
+	result = JSON.stringify(result);
+
+	return JSON.parse(result);
 };

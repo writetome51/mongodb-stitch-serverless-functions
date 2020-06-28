@@ -8,7 +8,7 @@ exports = async function updateDocument(collectionName, searchCriteria, updating
 	var result = await collection.updateOne(searchCriteria, updatingObject);
 
 	try {
-		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
+		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 	} catch (e) {
 		throw new Error(e.message);
 	}

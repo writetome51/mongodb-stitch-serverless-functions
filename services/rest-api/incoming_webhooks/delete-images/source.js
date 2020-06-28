@@ -8,7 +8,10 @@ exports = async function(payload) {
 
 			var user = await context.functions.execute("getUser", props.sessionID);
 
-			return await context.functions.execute("deleteImages", user._id, props.imageNames);
+			return await context.functions.execute("deleteImagesAndRemoveFromAssociatedLibraries",
+				user._id,
+				props.imageNames
+			);
 		}
 	);
 };

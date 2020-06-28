@@ -10,7 +10,7 @@ exports = async function(searchCriteria, errorMessageIfUserNotFound) {
 		}
 	);
 	try {
-		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
+		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 	} catch (e) {
 		throw new Error(e.message);
 	}

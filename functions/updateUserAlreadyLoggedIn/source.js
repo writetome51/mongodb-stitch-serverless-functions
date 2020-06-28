@@ -6,7 +6,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	var result = await users.updateOne(searchCriteria, updatingObject);
 
 	try {
-		result = context.functions.execute("getMessageFromCRUDResult", result, 'update');
+		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 	} catch (e) {
 		throw new Error(e.message);
 	}

@@ -8,7 +8,7 @@ exports = async function(_user_id, imageNames) {
 
 		var images = context.functions.execute("getImagesCollection");
 
-		var imgIDs = get_imgIDsFrom(images);
+		var imgIDs = await get_imgIDsFrom(images);
 		await removeFromLibraries(imgIDs);
 
 		return await deleteImagesFrom(images);

@@ -28,12 +28,11 @@ exports = async function(_user_id, imageNames) {
 		async function removeFromLibraries(imgIDs) {
 			var libraries = context.functions.execute("getLibrariesCollection");
 			try {
-				var result = await libraries.update(
+				var result = await libraries.updateMany(
 					{_user_id},
 
 					// Removes any item found in imgIDs from library's '_image_ids' array.
-					{$pull: {'_image_ids': {$in: imgIDs}}},
-					{multi: true} // applies to multiple documents.
+					{$pull: {'_image_ids': {$in: imgIDs}}}
 				);
 				return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 			}

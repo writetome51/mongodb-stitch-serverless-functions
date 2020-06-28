@@ -31,6 +31,9 @@ exports = async function(_user_id, imageNames) {
 
 
 		async function removeFromLibraries(imgIDs) {
+			//temp:
+			if (!Array.isArray(imgIDs)) throw new Error('imgIDs is not array');
+
 			var libraries = context.functions.execute("getLibrariesCollection");
 			try {
 				var result = await libraries.updateMany(

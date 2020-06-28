@@ -37,7 +37,7 @@ exports = async function(_user_id, imageNames) {
 			var libraries = context.functions.execute("getLibrariesCollection");
 			try {
 				var result = await libraries.updateMany(
-					{_user_id},
+					{_user_id, _image_ids: {$in: imgIDs}},
 
 					// Removes any item found in imgIDs from library's '_image_ids' array.
 					{$pull: {'_image_ids': {$in: imgIDs}}}

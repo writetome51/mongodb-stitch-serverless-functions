@@ -21,22 +21,16 @@ exports = async function(_user_id, imageNames) {
 			}).toArray();
 			imagesToDelete = [].concat(imagesToDelete); // ensures it's Array prototype.
 
-			//temp:
-			if (!imagesToDelete.map || typeof imagesToDelete.map !== 'function') throw new Error(
-				'.map() function not supported'
-			);
-
 			return imagesToDelete.map((image) => image._id);
 		}
 
 
 		async function removeFromLibraries(imgIDs) {
-			//temp:
-			if (!Array.isArray(imgIDs)) throw new Error(imgIDs.toString());
 
 			var libraries = context.functions.execute("getLibrariesCollection");
 			try {
 				var result = await libraries.updateMany(
+					// Finds any doc whose '_image_ids' array contains any item in imgIDs.
 					{_user_id, _image_ids: {$in: imgIDs}},
 
 					// Removes any item found in imgIDs from library's '_image_ids' array.

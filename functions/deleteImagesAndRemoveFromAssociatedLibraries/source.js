@@ -21,6 +21,11 @@ exports = async function(_user_id, imageNames) {
 			}).toArray();
 			imagesToDelete = [].concat(imagesToDelete); // ensures it's Array prototype.
 
+			//temp:
+			if (!imagesToDelete.map || typeof imagesToDelete.map !== 'function') throw new Error(
+				'.map() function not supported'
+			);
+
 			return imagesToDelete.map((image) => image._id);
 		}
 

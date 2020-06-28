@@ -1,4 +1,4 @@
-exports = async function(_user_id, imageNames) {
+exports = async function(_user_id, _image_ids) {
 
 	var result = await __deleteImages();
 	return context.functions.execute("getMessageFromCRUDResult", result, 'delete');
@@ -10,7 +10,7 @@ exports = async function(_user_id, imageNames) {
 		try {
 			var result = images.deleteMany({
 				_user_id,
-				name: {$in: imageNames}
+				_id: {$in: _image_ids}
 			});
 		} catch (e) {
 			throw new Error(e.message);

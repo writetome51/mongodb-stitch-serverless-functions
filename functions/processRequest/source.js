@@ -1,7 +1,8 @@
 exports = async function(props, requiredProps, uniqueCode) {
 	var result;
-	// Combine passed required properties with the defaults:
-	requiredProps = ['secret', 'sessionID'].concat(requiredProps);
+
+	var defaultRequiredProps = ['secret', 'sessionID'];
+	requiredProps = defaultRequiredProps.concat(requiredProps);
 
 	try {
 		props = context.functions.execute("getPropertiesPreppedForQuerying",

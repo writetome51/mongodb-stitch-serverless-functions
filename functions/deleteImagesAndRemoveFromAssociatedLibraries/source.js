@@ -36,6 +36,7 @@ exports = async function(_user_id, imageNames) {
 					// Removes any item found in imgIDs from library's '_image_ids' array.
 					{$pull: {'_image_ids': {$in: imgIDs}}}
 				);
+				if (result['matchedCount'] === 0) return ;
 				return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 			}
 			catch (e) {

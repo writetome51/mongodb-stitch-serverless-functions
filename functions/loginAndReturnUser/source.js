@@ -1,5 +1,6 @@
 exports = async function (props) {
 	var  {email, password} = props;
+	password = context.functions.execute("getHash", password);
 	var result;
 
 	try{

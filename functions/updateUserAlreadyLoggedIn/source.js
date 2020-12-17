@@ -8,7 +8,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	try {
 		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 	} catch (e) {
-		throw new Error(e.message);
+		result = e;
 	}
 	return result;
 

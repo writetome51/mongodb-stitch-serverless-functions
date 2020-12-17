@@ -1,4 +1,4 @@
-exports = async function(sessionID) {
+exports = async function({sessionID}) {
 	return await context.functions.execute("updateUserAlreadyLoggedIn",
 		sessionID,
 		{},

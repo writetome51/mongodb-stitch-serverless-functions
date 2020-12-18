@@ -3,7 +3,7 @@ exports = async function({email, securityQuestion}) {
 
 	try {
 		let user = await exec("getUserByEmail", email);
-		errorIfQuestionsDontMatch(securityQuestion, user.securityQuestion);
+		errorIfQuestionsDontMatch(user.securityQuestion, securityQuestion);
 
 		let sessionID = await exec("loginUserByEmailAndReturnSessionID", email);
 		result = await exec("getUser", sessionID);
@@ -14,7 +14,7 @@ exports = async function({email, securityQuestion}) {
 	return result;
 
 
-	function errorIfQuestionsDontMatch(submittedQuestion, storedQuestion) {
+	function errorIfQuestionsDontMatch(storedQuestion, submittedQuestion) {
 		submittedQuestion.answer = submittedQuestion.answer.toLowerCase();
 		submittedQuestion.answer = getHash(submittedQuestion.answer);
 

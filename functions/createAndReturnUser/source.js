@@ -1,5 +1,8 @@
 exports = async function(props) {
 	try {
+		//temp:
+		if (typeof props === 'object') return {error:{message: props.password}};
+
 		props = getRequiredProperties(props);
 		await createUser(props);
 		return await context.functions.execute("getUser", props.sessionID);

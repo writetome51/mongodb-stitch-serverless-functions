@@ -1,17 +1,14 @@
 exports = async function({email, securityQuestion}) {
-	var result;
-
 	try {
 		let user = await exec("getUserByEmail", email);
 		errorIfQuestionsDontMatch(user.securityQuestion, securityQuestion);
 
 		let sessionID = await exec("loginUserByEmailAndReturnSessionID", email);
-		result = await exec("getUser", sessionID);
+		return await exec("getUser", sessionID);
 	}
 	catch (error) {
-		result = {error};
+		return {error};
 	}
-	return result;
 
 
 	function errorIfQuestionsDontMatch(storedQuestion, submittedQuestion) {

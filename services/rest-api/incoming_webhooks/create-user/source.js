@@ -12,7 +12,7 @@ exports = async function(payload) {
 			// Unique value. User needs this to access his data.
 			props['sessionID'] = BSON.ObjectId().toString();
 
-			let result = await context.functions.execute("createUser", props);
+			let result = await context.functions.execute("createAndReturnUser", props);
 
 			if (result.success) return await context.functions.execute("getUser", props.sessionID);
 			else throw new Error(result);

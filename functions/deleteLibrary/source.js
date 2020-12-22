@@ -1,19 +1,19 @@
-exports = async function(_user_id, libraryName) {
+exports = async function({name, sessionID}) {
+	let props = arguments[0];
+	try {
+		var user = await context.functions.execute("getUser", props);
 
-	var result = await __deleteLibrary();
-	return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
-
-
-	async function __deleteLibrary() {
-		var libraries = context.functions.execute("getLibrariesCollection");
-
-		try {
-			var result = await libraries.deleteOne({_user_id, name: libraryName});
-		} catch (e) {
-			throw new Error(e.message);
-		}
-		return result;
+		var result = await __deleteLibrary(props.name, user._id);
+		return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
+	}
+	catch (error) {
+		return {error};
 	}
 
+
+	async function __deleteLibrary(name, _user_id) {
+		var libraries = context.functions.execute("getLibrariesCollection");
+		return await libraries.deleteOne({_user_id, name});
+	}
 
 };

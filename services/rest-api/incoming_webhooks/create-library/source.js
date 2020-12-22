@@ -4,7 +4,7 @@ exports = async function(payload) {
 		['name'],
 
 		async (props) => {
-			return await context.functions.execute("createAndReturnNewLibrary", props);
+			return await context.functions.execute("createAndReturnLibrary", props);
 		}
 	);
 

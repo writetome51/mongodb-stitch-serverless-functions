@@ -6,11 +6,11 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	var result = await users.updateOne(searchCriteria, updatingObject);
 
 	try {
-		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
-	} catch (e) {
-		result = {error: {message: e.message}};
+		return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
 	}
-	return result;
+	catch (error) {
+		return {error};
+	}
 
 
 	function mergeObjects(obj1, obj2) {

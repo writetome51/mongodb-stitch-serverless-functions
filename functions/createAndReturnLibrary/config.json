@@ -1,5 +1,5 @@
 {
-    "name": "deleteLibrary",
+    "name": "createAndReturnLibrary",
     "private": false,
     "run_as_system": true
 }

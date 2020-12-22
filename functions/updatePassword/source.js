@@ -1,5 +1,5 @@
 exports = async function({email, password, newPassword, sessionID}) {
-	let params = {email, password, newPassword, sessionID};
+	let params = arguments[0];
 
 	try {
 		params = context.functions.execute("ifHasPasswordAndSecurityQuestionAnswer_getHashed", params);

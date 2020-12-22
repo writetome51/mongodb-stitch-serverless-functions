@@ -6,7 +6,7 @@ exports = async function(payload) {
 		async (props) => {
 			// 'props': { sessionID,  imageNames }
 
-			var user = await context.functions.execute("getUser", props.sessionID);
+			var user = await context.functions.execute("getUser", props);
 
 			return await context.functions.execute("deleteImagesAndRemoveFromAssociatedLibraries",
 				user._id,

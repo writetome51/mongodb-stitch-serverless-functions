@@ -6,7 +6,7 @@ exports = async function(payload) {
 		['name', 'batchSize', 'batchNumber'],
 
 		async (props) => {
-			var user = await context.functions.execute("getUser", props.sessionID);
+			var user = await context.functions.execute("getUser", props);
 			var library = await context.functions.execute("getLibrary", user._id, props.name);
 
 			return await context.functions.execute("getLibraryImagesBatch",

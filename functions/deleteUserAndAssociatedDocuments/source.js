@@ -1,6 +1,6 @@
 exports = async function(props) {
 
-	var user = await context.functions.execute("getUser", props.sessionID);
+	var user = await context.functions.execute("getUser", props);
 	var result = await context.functions.execute("deleteUser", props);
 	if (!(result.success)) return result;
 

@@ -1,5 +1,5 @@
 {
     "name": "getUser",
-    "private": true,
+    "private": false,
     "run_as_system": true
 }

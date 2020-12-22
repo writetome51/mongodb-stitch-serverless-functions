@@ -1,4 +1,4 @@
-exports = async function(sessionID) {
+exports = async function({sessionID}) {
 	var users = context.functions.execute("getUsersCollection");
 	var user = await users.findOne({sessionID});
 

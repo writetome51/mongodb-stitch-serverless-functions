@@ -1,6 +1,6 @@
 exports = async function(props) {
 	// Make sure user exists and is logged in before continuing:
-	var user = await exec("getUser", props.sessionID);
+	var user = await exec("getUser", props);
 	var imageDocs = exec("getNewImageDocuments", props.images, user._id);
 
 	var images = exec("getImagesCollection");

@@ -6,7 +6,7 @@ exports = async function ({email, password}) {
 		var sessionID = await context.functions.execute("loginUserAndReturnSessionID",
 			email, password
 		);
-		result = await context.functions.execute("getUser", sessionID);
+		result = await context.functions.execute("getUser", {sessionID});
 	}
 	catch (error) {
 		result = {error};

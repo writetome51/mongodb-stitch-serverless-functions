@@ -2,7 +2,7 @@ exports = async function(props) {
 	try {
 		props = getRequiredProperties(props);
 		await createUser(props);
-		return await context.functions.execute("getUser", props.sessionID);
+		return await context.functions.execute("getUser", props);
 	}
 	catch (error) {
 		return {error};

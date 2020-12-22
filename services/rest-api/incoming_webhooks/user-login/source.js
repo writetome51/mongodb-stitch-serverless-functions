@@ -8,7 +8,7 @@ exports = async function(payload) {
 			var sessionID = await context.functions.execute("loginUserAndReturnSessionID",
 				props.email, props.password
 			);
-			return await context.functions.execute("getUser", sessionID);
+			return await context.functions.execute("getUser", {sessionID});
 		}
 	);
 

@@ -14,7 +14,7 @@ exports = async function(payload) {
 
 			let result = await context.functions.execute("createAndReturnUser", props);
 
-			if (result.success) return await context.functions.execute("getUser", props.sessionID);
+			if (result.success) return await context.functions.execute("getUser", props);
 			else throw new Error(result);
 		}
 	);

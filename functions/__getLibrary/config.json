@@ -1,0 +1,5 @@
+{
+    "name": "__getLibrary",
+    "private": true,
+    "run_as_system": true
+}

@@ -5,9 +5,7 @@ exports = async function({name, sessionID}) {
 		let lib = context.functions.execute("getNewLibraryDocument", user._id, props.name);
 
 		let result = await context.functions.execute("insertNewLibrary", lib);
-		if (result.success) return await context.functions.execute("getLibrary",
-			lib._user_id, lib.name
-		);
+		if (result.success) return lib;
 	}
 	catch (error) {
 		return {error};

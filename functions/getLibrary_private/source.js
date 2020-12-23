@@ -6,4 +6,3 @@ exports = async function(_user_id, name) {
 
 	return library;
 };
-

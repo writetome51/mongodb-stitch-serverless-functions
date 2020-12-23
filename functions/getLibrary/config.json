@@ -1,5 +1,5 @@
 {
     "name": "getLibrary",
-    "private": false,
+    "private": true,
     "run_as_system": true
 }

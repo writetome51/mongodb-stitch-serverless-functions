@@ -1,6 +1,7 @@
-exports = async function(props) {
+exports = async function({email, password, securityQuestion}) {
+	let props = arguments[0];
 	try {
-		props = getRequiredProperties(props);
+		props = getRequiredPropertiesAdded(props);
 		await createUser(props);
 		return await context.functions.execute("getUser", props);
 	}
@@ -9,7 +10,7 @@ exports = async function(props) {
 	}
 
 
-	function getRequiredProperties(props) {
+	function getRequiredPropertiesAdded(props) {
 		props = context.functions.execute("ifHasPasswordAndSecurityQuestionAnswer_getHashed", props);
 
 		props['loggedIn'] = true;

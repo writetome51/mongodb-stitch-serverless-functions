@@ -1,5 +1,5 @@
 {
-    "name": "createAndReturnUser",
+    "name": "pub_deleteLibrary",
     "private": false,
     "run_as_system": true
 }

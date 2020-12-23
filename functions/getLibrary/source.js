@@ -1,11 +1,8 @@
-exports = async function({sessionID, name}) {
-	let props = arguments[0];
+exports = async function(_user_id, name) {
+	var libraries = context.functions.execute("getLibrariesCollection");
+	var library = await libraries.findOne({_user_id, name});
 
-	try {
-		var user = await context.functions.execute("getUser", props);
-		return await context.functions.execute("getLibrary__", user._id, props.name);
-	}
-	catch (error) {
-		return {error};
-	}
+	if (!(library)) throw new Error("No such library found");
+
+	return library;
 };

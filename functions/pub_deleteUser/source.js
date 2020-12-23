@@ -1,4 +1,5 @@
-exports = async function(props) {
+exports = async function({sessionID, email, password}) {
+	let props = arguments[0];
 
 	var user = await context.functions.execute("getUser", props);
 	var result = await context.functions.execute("deleteUser", props);

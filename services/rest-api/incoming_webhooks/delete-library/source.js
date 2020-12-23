@@ -6,7 +6,7 @@ exports = async function(payload) {
 		async (props) => {
 			var user = await context.functions.execute("getUser", props);
 
-			return await context.functions.execute("deleteLibrary", 
+			return await context.functions.execute("pub_deleteLibrary",
 				user._id, props.name
 			);
 		}

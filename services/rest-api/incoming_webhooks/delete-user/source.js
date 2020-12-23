@@ -4,7 +4,7 @@ exports = async function(payload) {
 		['email', 'password'],
 
 		async (props) => {
-			return await context.functions.execute("deleteUserAndAssociatedDocuments", props);
+			return await context.functions.execute("pub_deleteUser", props);
 		}
 	);
 };

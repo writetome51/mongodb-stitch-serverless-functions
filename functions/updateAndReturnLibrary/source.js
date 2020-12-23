@@ -12,7 +12,7 @@ exports = async function(props) {
 	if (result.success) {
 		if (updatingObject.$set.name) library.name = updatingObject.$set.name;
 		try {
-			result = await context.functions.execute("_getLibrary",
+			result = await context.functions.execute("getLibrary__",
 				library._user_id, library.name
 			);
 		} catch (e) {

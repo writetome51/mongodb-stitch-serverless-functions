@@ -1,13 +1,15 @@
-exports = async function(_user_id) {
+exports = async function({sessionID}) {
+	let params = arguments[0];
 	try {
-		var libraries = await __getLibraries();
-	} catch (e) {
-		throw new Error(e.message);
+		var user = await context.functions.execute("getUser", params);
+		return await __getLibraries(user._id);
 	}
-	return libraries;
+	catch (error) {
+		return {error};
+	}
 
 
-	async function __getLibraries() {
+	async function __getLibraries(_user_id) {
 		var libCollection = context.functions.execute("getLibrariesCollection");
 		return await libCollection.find({_user_id}).toArray();
 	}

@@ -3,7 +3,7 @@ exports = async function({sessionID, name}) {
 
 	try {
 		var user = await context.functions.execute("getUser", props);
-		return await context.functions.execute("getLibrary_private", user._id, props.name);
+		return await context.functions.execute("_getLibrary", user._id, props.name);
 	}
 	catch (error) {
 		return {error};

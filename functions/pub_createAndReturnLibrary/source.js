@@ -3,7 +3,7 @@ exports = async function({name, sessionID}) {
 		arguments[0],
 
 		async (params) => {
-			let user = await exec("pub_getUser", params);
+			let user = await exec("getUser", params);
 			let lib = exec("getNewLibraryDocument", user._id, params.name);
 
 			let result = await exec("insertNewLibrary", lib);

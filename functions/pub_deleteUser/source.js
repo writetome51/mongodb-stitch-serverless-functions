@@ -1,21 +1,21 @@
 exports = async function({sessionID, email, password}) {
-	let props = arguments[0];
-	try {
-		var user = await context.functions.execute("pub_getUser", props);
-		await context.functions.execute("deleteUser", props);
+	return await exec("handlePublicFunction",
+		arguments[0],
 
-		await __deleteAssociatedDocuments(user._id);
-		return {success: true};
-	}
-	catch (error) {
-		return {error};
-	}
+		async (props) => {
+			var user = await exec("getUser", props);
+			await exec("deleteUser", props);
+
+			await __deleteAssociatedDocuments(user._id);
+			return {success: true};
+		}
+	);
 
 
 	async function __deleteAssociatedDocuments(_user_id) {
 
 		for (let collectionName of ['image-library-app-library', 'image-library-app-image']) {
-			var collection = context.functions.execute("getCollection", collectionName);
+			var collection = exec("getCollection", collectionName);
 
 			try {
 				var result = await collection.deleteMany({_user_id});
@@ -31,5 +31,9 @@ exports = async function({sessionID, email, password}) {
 		}
 	}
 
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
+	}
 
 };

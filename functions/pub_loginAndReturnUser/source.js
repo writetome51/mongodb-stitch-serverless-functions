@@ -1,13 +1,17 @@
-exports = async function ({email, password}) {
-	password = context.functions.execute("getHash", password);
+exports = async function({email, password}) {
+	return await exec("handlePublicFunction",
+		arguments[0],
 
-	try{
-		var sessionID = await context.functions.execute("loginUserAndReturnSessionID",
-			email, password
-		);
-		return await context.functions.execute("pub_getUser", {sessionID});
+		async ({email, password}) => {
+			password = exec("getHash", password);
+			var sessionID = await exec("loginUserAndReturnSessionID", email, password);
+			return await exec("getUser", {sessionID});
+		}
+	);
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
-	catch (error) {
-		return {error};
-	}
+
 };

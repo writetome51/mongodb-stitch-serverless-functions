@@ -4,7 +4,7 @@ exports = async function(payload) {
 		[],
 
 		async (props) => {
-			return await context.functions.execute("pub_getUser", props);
+			return await context.functions.execute("getUser", props);
 		}
 	);
 };

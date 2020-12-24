@@ -3,7 +3,7 @@ exports = async function({sessionID, imageNames}) {
 		arguments[0],
 
 		async (props) => {
-			var user = await exec("pub_getUser", props);
+			var user = await exec("getUser", props);
 
 			var result = await deleteImagesAndRemoveFromAssociatedLibraries(user._id, imageNames);
 			return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');

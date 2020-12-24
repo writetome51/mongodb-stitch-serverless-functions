@@ -5,7 +5,7 @@ exports = async function({email, password, securityQuestion}) {
 		async (props) => {
 			props = getRequiredPropertiesAdded(props);
 			await createUser(props);
-			return await exec("pub_getUser", props);
+			return await exec("getUser", props);
 		}
 	);
 

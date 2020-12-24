@@ -5,7 +5,7 @@ exports = async function({sessionID, images}) {
 		arguments[0],
 
 		async (params) => {
-			var user = await exec("pub_getUser", params);
+			var user = await exec("getUser", params);
 			var imageDocs = exec("getNewImageDocuments", params.images, user._id);
 
 			var result = await addNewImagesToDB(imageDocs)

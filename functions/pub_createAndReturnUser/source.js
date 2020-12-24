@@ -1,17 +1,17 @@
 exports = async function({email, password, securityQuestion}) {
-	let props = arguments[0];
-	try {
-		props = getRequiredPropertiesAdded(props);
-		await createUser(props);
-		return await context.functions.execute("pub_getUser", props);
-	}
-	catch (error) {
-		return {error};
-	}
+	return await exec("handlePublicFunction",
+		arguments[0],
+
+		async (props) => {
+			props = getRequiredPropertiesAdded(props);
+			await createUser(props);
+			return await exec("pub_getUser", props);
+		}
+	);
 
 
 	function getRequiredPropertiesAdded(props) {
-		props = context.functions.execute("ifHasPasswordAndSecurityQuestionAnswer_getHashed", props);
+		props = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", props);
 
 		props['loggedIn'] = true;
 		props['lastLoggedIn'] = new Date();
@@ -24,11 +24,16 @@ exports = async function({email, password, securityQuestion}) {
 
 
 	async function createUser(doc) {
-		var users = context.functions.execute("getUsersCollection");
+		var users = exec("getUsersCollection");
 
 		var result = await users.insertOne(doc);
 
-		context.functions.execute("getMessageFromInsertResult", result, 1);
+		exec("getMessageFromInsertResult", result, 1);
+	}
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
 
 };

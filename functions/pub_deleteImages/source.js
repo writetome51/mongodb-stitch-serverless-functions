@@ -1,19 +1,18 @@
 exports = async function({sessionID, imageNames}) {
-	let props = arguments[0];
-	try {
-		var user = await context.functions.execute("pub_getUser", props);
+	return await exec("handlePublicFunction",
+		arguments[0],
 
-		var result = await deleteImagesAndRemoveFromAssociatedLibraries(user._id, imageNames);
-		return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
-	}
-	catch (error) {
-		return {error};
-	}
+		async (props) => {
+			var user = await exec("pub_getUser", props);
+
+			var result = await deleteImagesAndRemoveFromAssociatedLibraries(user._id, imageNames);
+			return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');
+		}
+	);
 
 
 	async function deleteImagesAndRemoveFromAssociatedLibraries(_user_id, imageNames) {
-
-		var images = context.functions.execute("getImagesCollection");
+		var images = exec("getImagesCollection");
 
 		var imgIDs = await get_imgIDsFrom(images);
 		await removeFromLibraries(imgIDs);
@@ -34,7 +33,7 @@ exports = async function({sessionID, imageNames}) {
 
 		async function removeFromLibraries(imgIDs) {
 
-			var libraries = context.functions.execute("getLibrariesCollection");
+			var libraries = exec("getLibrariesCollection");
 			try {
 				var result = await libraries.updateMany(
 					// Finds any doc whose '_image_ids' array contains any item in imgIDs.
@@ -44,7 +43,7 @@ exports = async function({sessionID, imageNames}) {
 					{$pull: {'_image_ids': {$in: imgIDs}}}
 				);
 				if (result['matchedCount'] === 0) return;
-				return context.functions.execute("getMessageFromUpdateOrDeleteResult",
+				return exec("getMessageFromUpdateOrDeleteResult",
 					result, 'update'
 				);
 			} catch (e) {
@@ -56,17 +55,20 @@ exports = async function({sessionID, imageNames}) {
 
 		async function deleteImagesFrom(images) {
 			try {
-				result = await images.deleteMany({
+				return await images.deleteMany({
 					_user_id,
 					name: {$in: imageNames}
 				});
 			} catch (e) {
 				throw new Error(e.message);
 			}
-			return result;
 		}
 
+	}
 
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
 
 

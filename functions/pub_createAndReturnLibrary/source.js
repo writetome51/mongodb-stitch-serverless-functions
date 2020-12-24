@@ -1,13 +1,19 @@
 exports = async function({name, sessionID}) {
-	let props = arguments[0];
-	try {
-		var user = await context.functions.execute("pub_getUser", props);
-		let lib = context.functions.execute("getNewLibraryDocument", user._id, props.name);
+	return await exec("handlePublicFunction",
+		arguments[0],
 
-		let result = await context.functions.execute("insertNewLibrary", lib);
-		if (result.success) return lib;
+		async (params) => {
+			let user = await exec("pub_getUser", params);
+			let lib = exec("getNewLibraryDocument", user._id, params.name);
+
+			let result = await exec("insertNewLibrary", lib);
+			if (result.success) return lib;
+		}
+	);
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
-	catch (error) {
-		return {error};
-	}
+
 };

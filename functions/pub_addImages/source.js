@@ -1,20 +1,22 @@
 // 	images: Array<{name, src, description, tags, date, rating, location}>
 
 exports = async function({sessionID, images}) {
-	let props = arguments[0];
+	return await exec("handlePublicFunction",
+		arguments[0],
 
-	try {
-		// Make sure user exists and is logged in before continuing:
-		var user = await exec("pub_getUser", props);
-		var imageDocs = exec("getNewImageDocuments", props.images, user._id);
+		async (params) => {
+			var user = await exec("pub_getUser", params);
+			var imageDocs = exec("getNewImageDocuments", params.images, user._id);
 
+			var result = await addNewImagesToDB(imageDocs)
+			return exec("getMessageFromInsertResult", result, imageDocs.length);
+		}
+	);
+
+
+	async function addNewImagesToDB(imageDocs) {
 		const images = exec("getImagesCollection");
-		var result = await images.insertMany(imageDocs);
-
-		return exec("getMessageFromInsertResult", result, imageDocs.length);
-	}
-	catch (error) {
-		return {error};
+		return await images.insertMany(imageDocs);
 	}
 
 

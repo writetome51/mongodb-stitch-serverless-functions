@@ -1,5 +1,5 @@
 {
-    "name": "getSecurityQuestion",
+    "name": "pub_getSecurityQuestion",
     "private": false,
     "run_as_system": true
 }

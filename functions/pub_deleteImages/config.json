@@ -1,5 +1,5 @@
 {
-    "name": "updatePassword",
+    "name": "pub_deleteImages",
     "private": false,
     "run_as_system": true
 }

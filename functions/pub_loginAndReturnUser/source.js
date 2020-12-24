@@ -1,15 +1,13 @@
 exports = async function ({email, password}) {
 	password = context.functions.execute("getHash", password);
-	var result;
 
 	try{
 		var sessionID = await context.functions.execute("loginUserAndReturnSessionID",
 			email, password
 		);
-		result = await context.functions.execute("getUser", {sessionID});
+		return await context.functions.execute("pub_getUser", {sessionID});
 	}
 	catch (error) {
-		result = {error};
+		return {error};
 	}
-	return result;
 };

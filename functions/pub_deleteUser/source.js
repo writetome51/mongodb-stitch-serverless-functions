@@ -1,11 +1,15 @@
 exports = async function({sessionID, email, password}) {
 	let props = arguments[0];
+	try {
+		var user = await context.functions.execute("pub_getUser", props);
+		await context.functions.execute("deleteUser", props);
 
-	var user = await context.functions.execute("getUser", props);
-	var result = await context.functions.execute("deleteUser", props);
-	if (!(result.success)) return result;
-
-	return await __deleteAssociatedDocuments(user._id);
+		await __deleteAssociatedDocuments(user._id);
+		return {success: true};
+	}
+	catch (error) {
+		return {error};
+	}
 
 
 	async function __deleteAssociatedDocuments(_user_id) {
@@ -25,8 +29,6 @@ exports = async function({sessionID, email, password}) {
 				`Delete operation in collection ${collectionName} unsuccessful`
 			);
 		}
-
-		return {success: true};
 	}
 
 

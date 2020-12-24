@@ -3,7 +3,7 @@ exports = async function({email, password, securityQuestion}) {
 	try {
 		props = getRequiredPropertiesAdded(props);
 		await createUser(props);
-		return await context.functions.execute("getUser", props);
+		return await context.functions.execute("pub_getUser", props);
 	}
 	catch (error) {
 		return {error};

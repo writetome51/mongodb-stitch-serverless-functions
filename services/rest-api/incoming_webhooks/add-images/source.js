@@ -8,7 +8,7 @@ exports = async function(payload) {
 		// 	images: {name, src, description, tags, date, rating, location}[]
 		// }
 		async (props) => {
-			return await context.functions.execute("addImages", props);
+			return await context.functions.execute("pub_addImages", props);
 		}
 	);
 };

@@ -1,5 +1,5 @@
 {
-    "name": "userExists",
+    "name": "pub_logoutUser",
     "private": false,
     "run_as_system": true
 }

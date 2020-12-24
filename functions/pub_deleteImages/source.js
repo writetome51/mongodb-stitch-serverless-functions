@@ -1,10 +1,17 @@
-exports = async function(_user_id, imageNames) {
+exports = async function({sessionID, imageNames}) {
+	let props = arguments[0];
+	try {
+		var user = await context.functions.execute("pub_getUser", props);
 
-	var result = await __deleteImagesAndRemoveFromAssociatedLibraries(_user_id, imageNames);
-	return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
+		var result = await deleteImagesAndRemoveFromAssociatedLibraries(user._id, imageNames);
+		return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
+	}
+	catch (error) {
+		return {error};
+	}
 
 
-	async function __deleteImagesAndRemoveFromAssociatedLibraries(_user_id, imageNames) {
+	async function deleteImagesAndRemoveFromAssociatedLibraries(_user_id, imageNames) {
 
 		var images = context.functions.execute("getImagesCollection");
 
@@ -36,10 +43,11 @@ exports = async function(_user_id, imageNames) {
 					// Removes any item found in imgIDs from library's '_image_ids' array.
 					{$pull: {'_image_ids': {$in: imgIDs}}}
 				);
-				if (result['matchedCount'] === 0) return ;
-				return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
-			}
-			catch (e) {
+				if (result['matchedCount'] === 0) return;
+				return context.functions.execute("getMessageFromUpdateOrDeleteResult",
+					result, 'update'
+				);
+			} catch (e) {
 				throw new Error(e.message);
 			}
 

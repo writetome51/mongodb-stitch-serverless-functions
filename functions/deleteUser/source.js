@@ -7,19 +7,13 @@ exports = async function({sessionID, email, password}) {
 
 	async function __deleteUser() {
 		var users = context.functions.execute("getUsersCollection");
-		try {
-			var result = await users.deleteOne({
-				loggedIn: true,
-				sessionID: props.sessionID,
-				email: props.email,
-				password: props.password
-			});
-		}
-		catch (e) {
-			throw new Error(e.message);
-		}
-		return result;
-	}
 
+		return await users.deleteOne({
+			loggedIn: true,
+			sessionID: props.sessionID,
+			email: props.email,
+			password: props.password
+		});
+	}
 
 };

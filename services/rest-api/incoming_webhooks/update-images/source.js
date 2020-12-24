@@ -11,7 +11,7 @@ exports = async function(payload) {
 			// }
 			// The properties in 'changes' can contain dot-notation.
 
-			let user = await context.functions.execute('getUser', props.sessionID);
+			let user = await context.functions.execute('pub_getUser', props.sessionID);
 
 			return await context.functions.execute("updateImages", user._id, props.images);
 		}

@@ -1,4 +1,4 @@
 In functions/, any function whose name begins with 'pub_' is public, meaning it can be accessed
-programatically from an outside app using a Realm SDK.
+programatically from an outside app using a MongoDB Realm SDK.
 
 All other functions are private.

@@ -9,7 +9,7 @@ exports = async function(payload) {
 		// i.e., if batchNumber is 1 and batchSize is 20, images 1 thru 20 are returned.
 
 		async (props) => {
-			var user = await context.functions.execute("getUser", props);
+			var user = await context.functions.execute("pub_getUser", props);
 
 			return await context.functions.execute("getUserImagesBatch",
 				user._id, props.batchSize, props.batchNumber

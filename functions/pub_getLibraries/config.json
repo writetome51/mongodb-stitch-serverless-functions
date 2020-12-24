@@ -1,5 +1,5 @@
 {
-    "name": "updateEmail",
+    "name": "pub_getLibraries",
     "private": false,
     "run_as_system": true
 }

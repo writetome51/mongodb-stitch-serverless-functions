@@ -4,7 +4,7 @@ exports = async function(payload) {
 		['email'],
 
 		async (props) => {
-			return await  context.functions.execute("userExists", props.email);
+			return await  context.functions.execute("pub_userExists", props.email);
 		}
 	);
 };

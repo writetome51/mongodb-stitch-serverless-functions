@@ -1,7 +1,7 @@
 // 'props': {sessionID: string, name: string, changes: object}
 
 exports = async function(props) {
-	let user = await context.functions.execute('getUser', props.sessionID);
+	let user = await context.functions.execute('pub_getUser', props.sessionID);
 
 	let library = {_user_id: user._id, name: props.name};
 

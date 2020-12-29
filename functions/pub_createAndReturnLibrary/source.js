@@ -1,10 +1,9 @@
 exports = async function({name, sessionID}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async (params) => {
-			let user = await exec("getUser", params);
-			let lib = exec("getNewLibraryDocument", user._id, params.name);
+		async () => {
+			let user = await exec("getUser", {sessionID});
+			let lib = exec("getNewLibraryDocument", user._id, name);
 
 			let result = await exec("insertNewLibrary", lib);
 			if (result.success) return lib;

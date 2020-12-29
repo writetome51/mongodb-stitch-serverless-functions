@@ -1,10 +1,9 @@
 exports = async function({sessionID, email, password}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async (props) => {
-			var user = await exec("getUser", props);
-			await exec("deleteUser", props);
+		async () => {
+			var user = await exec("getUser", {sessionID});
+			await exec("deleteUser", {sessionID, email, password});
 
 			await __deleteAssociatedDocuments(user._id);
 			return {success: true};

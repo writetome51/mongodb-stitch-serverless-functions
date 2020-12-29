@@ -1,8 +1,7 @@
 exports = async function({email, securityQuestion}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async ({email, securityQuestion}) => {
+		async () => {
 			let user = await exec("getUserByEmail", email);
 			errorIfQuestionsDontMatch(user.securityQuestion, securityQuestion);
 
@@ -16,7 +15,7 @@ exports = async function({email, securityQuestion}) {
 		submittedQuestion.answer = submittedQuestion.answer.toLowerCase();
 		submittedQuestion.answer = exec("getHash", submittedQuestion.answer);
 
-		exec("validateSecurityQuestion", storedQuestion, submittedQuestion);
+		exec("errorIfSecurityQuestionInvalid", storedQuestion, submittedQuestion);
 	}
 
 

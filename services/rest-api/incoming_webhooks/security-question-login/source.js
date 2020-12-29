@@ -7,7 +7,7 @@ exports = async function(payload) {
 
 			let user = await context.functions.execute("getUserByEmail", props.email);
 
-			context.functions.execute("validateSecurityQuestion",
+			context.functions.execute("errorIfSecurityQuestionInvalid",
 				user.securityQuestion, props.securityQuestion
 			);
 

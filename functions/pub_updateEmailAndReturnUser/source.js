@@ -1,10 +1,10 @@
 exports = async function({email, password, newEmail, sessionID}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async (params) => {
-			params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", params);
-
+		async () => {
+			let params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed",
+				{email, password, newEmail, sessionID}
+			);
 			return await exec("updateAndReturnUserAlreadyLoggedIn",
 				params.sessionID,
 				{

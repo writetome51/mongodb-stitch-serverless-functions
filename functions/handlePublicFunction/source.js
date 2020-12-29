@@ -1,8 +1,6 @@
-// `params`: object
-
-exports = async function(params, func) {
+exports = async function(func) {
 	try {
-		return await func(params);
+		return await func();
 	}
 	catch (error) {
 		return {error};

@@ -1,11 +1,10 @@
 exports = async function({email, password, securityQuestion}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async (props) => {
-			props = getRequiredPropertiesAdded(props);
-			await createUser(props);
-			return await exec("getUser", props);
+		async () => {
+			let params = getRequiredPropertiesAdded({email, password, securityQuestion});
+			await createUser(params);
+			return await exec("getUser", params);
 		}
 	);
 

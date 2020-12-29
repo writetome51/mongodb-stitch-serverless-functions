@@ -2,11 +2,10 @@
 
 exports = async function({sessionID, images}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async (params) => {
-			var user = await exec("getUser", params);
-			var imageDocs = exec("getNewImageDocuments", params.images, user._id);
+		async () => {
+			var user = await exec("getUser", {sessionID});
+			var imageDocs = exec("getNewImageDocuments", images, user._id);
 
 			var result = await addNewImagesToDB(imageDocs)
 			return exec("getMessageFromInsertResult", result, imageDocs.length);

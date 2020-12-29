@@ -1,10 +1,8 @@
 exports = async function({name, sessionID}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
-
-		async (params) => {
-			var user = await exec("getUser", params);
-			return await exec("getLibrary", user._id, params.name);
+		async () => {
+			var user = await exec("getUser", {sessionID});
+			return await exec("getLibrary", user._id, name);
 		}
 	);
 

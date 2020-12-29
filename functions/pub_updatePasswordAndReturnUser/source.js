@@ -1,10 +1,7 @@
 exports = async function({email, password, newPassword, sessionID}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
-
-		async (params) => {
-			params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", params);
-			params = exec("getPropertiesAfterComparingOldAndNewPasswords", params);
+		async () => {
+			let params = getPreppedForDatabase({email, password, newPassword, sessionID});
 
 			return await exec("updateAndReturnUserAlreadyLoggedIn",
 				params.sessionID,
@@ -16,6 +13,12 @@ exports = async function({email, password, newPassword, sessionID}) {
 			);
 		}
 	);
+
+
+	function getPreppedForDatabase(params) {
+		params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", params);
+		return exec("getPropertiesAfterComparingOldAndNewPasswords", params);
+	}
 
 
 	function exec(funcName, ...args) {

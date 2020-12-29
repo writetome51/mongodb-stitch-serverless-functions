@@ -1,8 +1,7 @@
 exports = async function({email}) {
 	return await exec("handlePublicFunction",
-		arguments[0],
 
-		async ({email}) => {
+		async () => {
 			let user = await exec("getUserByEmail", email);
 			return user.securityQuestion;
 		}

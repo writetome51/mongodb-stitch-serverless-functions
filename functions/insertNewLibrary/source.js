@@ -1,7 +1,11 @@
 exports = async function(doc) {
-	var libraries = context.functions.execute("getLibrariesCollection");
-
+	var libraries = exec("getLibrariesCollection");
 	var result = await libraries.insertOne(doc);
 
-	return context.functions.execute("getMessageFromInsertResult", result, 1);
+	return exec("getMessageFromInsertResult", result, 1);
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
+	}
 };

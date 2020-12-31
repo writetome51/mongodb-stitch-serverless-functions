@@ -1,6 +1,6 @@
 exports = async function(_image_ids, batchSize, batchNumber) {
 
-	return await context.functions.execute("getBatchOfImages",
+	return await exec("getBatchOfImages",
 		getImagesInProperOrder,
 		batchSize,
 		batchNumber
@@ -8,7 +8,7 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 
 
 	async function getImagesInProperOrder() {
-		let imagesCollection = context.functions.execute("getImagesCollection");
+		let imagesCollection = exec("getImagesCollection");
 		let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}}).toArray();
 
 		// Still not clear why, but the Cursor method .toArray() doesn't return an array that
@@ -41,6 +41,11 @@ exports = async function(_image_ids, batchSize, batchNumber) {
 			return [].concat(arr);
 		}
 
+	}
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
 
 

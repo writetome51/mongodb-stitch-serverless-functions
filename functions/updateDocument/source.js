@@ -3,14 +3,15 @@ exports = async function updateDocument(collectionName, searchCriteria, updating
 	delete updatingObject['$set']['_user_id'];
 	delete updatingObject['$set']['_id'];
 
-	var collection = context.functions.execute("getCollection", collectionName);
+	var collection = exec("getCollection", collectionName);
 
 	var result = await collection.updateOne(searchCriteria, updatingObject);
 
-	try {
-		result = context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'update');
-	} catch (e) {
-		throw new Error(e.message);
+	return exec("getMessageFromUpdateOrDeleteResult", result, 'update');
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
-	return result;
+
 };

@@ -1,19 +1,23 @@
 exports = async function({sessionID, email, password}) {
-	let props = arguments[0];
 
 	var result = await __deleteUser();
-	return context.functions.execute("getMessageFromUpdateOrDeleteResult", result, 'delete');
+	return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');
 
 
 	async function __deleteUser() {
-		var users = context.functions.execute("getUsersCollection");
+		var users = exec("getUsersCollection");
 
 		return await users.deleteOne({
 			loggedIn: true,
-			sessionID: props.sessionID,
-			email: props.email,
-			password: props.password
+			sessionID,
+			email,
+			password
 		});
+	}
+
+
+	function exec(funcName, ...args) {
+		return context.functions.execute(funcName, ...args);
 	}
 
 };

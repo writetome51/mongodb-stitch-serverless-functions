@@ -1,58 +1,9 @@
-exports = async function(getImagesFunction, batchSize, batchNumber) {
-
-	batchNumber = Number(batchNumber);
-	batchSize = Number(batchSize);
-
-	try{
-		var images = await getImagesFunction();
-	}
-	catch (e) {
-		throw new Error(e.message);
-	}
-
-	let [startIndex, endIndex] = get_startIndex_endIndex(batchSize, batchNumber);
-	if ((startIndex + 1) > images.length) throw new Error(`Batch does not exist`);
-
-	let batch = _arraySlice(startIndex, endIndex + 1, images);
+exports = async function(getImagesFunction, dataTotal) {
+	var images = await getImagesFunction();
 
 	return {
-		dataTotal: images.length,
-		batch
+		dataTotal,
+		batch: images
 	};
-
-
-	function get_startIndex_endIndex(batchSize, batchNumber) {
-		let startIndex = (batchNumber - 1) * batchSize;
-		let endIndex = startIndex + batchSize - 1;
-		return [startIndex, endIndex];
-	}
-
-
-	function _arraySlice(start, end, arr) {
-		let len = arr.length;
-		let range = [];
-
-		start = idx(len, start);
-		end = idx(len, end, len);
-
-		while (start < end) {
-			range.push(arr[start++]);
-		}
-		return range;
-
-
-		function idx(len, pos, end = undefined) {
-			if (pos == null) {
-				pos = end || 0;
-			} else if (pos < 0) {
-				pos = Math.max(len + pos, 0);
-			} else {
-				pos = Math.min(pos, len);
-			}
-
-			return pos;
-		}
-
-	}
 
 };

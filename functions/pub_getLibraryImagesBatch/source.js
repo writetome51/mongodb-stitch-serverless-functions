@@ -5,9 +5,10 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 			var {_image_ids} = await exec("getLibrary", user._id, name);
 			var dataTotal = _image_ids.length;
 			_image_ids = _image_ids.splice((batchNumber - 1) * batchSize, batchSize);
+			let images = await getImagesInProperOrder();
 
 			return await exec("getBatchOfImages",
-				getImagesInProperOrder,
+				images,
 				dataTotal
 			);
 

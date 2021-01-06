@@ -2,7 +2,7 @@ exports = async function({batchSize, batchNumber, sessionID}) {
 	var {_user_id} = await context.functions.execute("getUser", {sessionID});
 	let imagesCollection = exec("getImagesCollection");
 	let imagesCursor = await imagesCollection.find({_user_id});
-	let dataTotal = imagesCursor.count();
+	let dataTotal = await imagesCursor.count();
 	let images = imagesCursor.sort({_id: 1})
 		.skip((batchNumber - 1) * batchSize)
 		.limit(batchSize).toArray();

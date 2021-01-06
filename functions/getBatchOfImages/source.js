@@ -1,9 +1,6 @@
-exports = async function(getImagesFunction, dataTotal) {
-	var images = await getImagesFunction();
-
+exports = async function(batch, dataTotal) {
 	return {
+		batch,
 		dataTotal,
-		batch: images
 	};
-
 };

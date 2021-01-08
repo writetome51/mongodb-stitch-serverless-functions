@@ -1,7 +1,7 @@
 exports = async function({sessionID}) {
 	return await exec("handlePublicFunction",
 		async () => {
-			let user = await exec("getUser", {sessionID});
+			let user = await exec("getLoggedInUser", {sessionID});
 			return await __getLibraries(user._id);
 		}
 	);

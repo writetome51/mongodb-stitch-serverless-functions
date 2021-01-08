@@ -9,7 +9,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updatingObject) {
 	}
 
 	if (result.success) {
-		result = await context.functions.execute("getUser", {sessionID});
+		result = await context.functions.execute("getLoggedInUser", {sessionID});
 	}
 	return result;
 };

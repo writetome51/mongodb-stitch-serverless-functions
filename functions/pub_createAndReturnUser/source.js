@@ -4,7 +4,7 @@ exports = async function({email, password, securityQuestion}) {
 		async () => {
 			let params = getRequiredPropertiesAdded({email, password, securityQuestion});
 			await createUser(params);
-			return await exec("getUser", params);
+			return await exec("getLoggedInUser", params);
 		}
 	);
 

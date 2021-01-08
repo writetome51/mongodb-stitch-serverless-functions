@@ -1,6 +1,6 @@
 exports = async function({sessionID}) {
 	return await exec("handlePublicFunction",
-		async () => await exec("getUser", {sessionID})
+		async () => await exec("getLoggedInUser", {sessionID})
 	);
 
 

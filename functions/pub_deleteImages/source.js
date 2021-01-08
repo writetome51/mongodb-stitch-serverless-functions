@@ -1,7 +1,7 @@
 exports = async function({sessionID, imageNames}) {
 	return await exec("handlePublicFunction",
 		async () => {
-			var user = await exec("getUser", {sessionID});
+			var user = await exec("getLoggedInUser", {sessionID});
 			var result = await deleteImagesAndRemoveFromAssociatedLibraries(user._id, imageNames);
 
 			return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');

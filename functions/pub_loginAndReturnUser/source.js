@@ -3,7 +3,7 @@ exports = async function({email, password}) {
 		async () => {
 			password = exec("getHash", password);
 			let sessionID = await exec("loginUserAndReturnSessionID", email, password);
-			return await exec("getUser", {sessionID});
+			return await exec("getLoggedInUser", {sessionID});
 		}
 	);
 

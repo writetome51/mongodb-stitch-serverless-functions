@@ -2,7 +2,7 @@ exports = async function({name, sessionID}) {
 	return await exec("handlePublicFunction",
 
 		async () => {
-			let user = await exec("getUser", {sessionID});
+			let user = await exec("getLoggedInUser", {sessionID});
 			let lib = exec("getNewLibraryDocument", user._id, name);
 
 			let result = await exec("insertNewLibrary", lib);

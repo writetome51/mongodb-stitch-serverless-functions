@@ -2,7 +2,7 @@ exports = async function({sessionID, email, password}) {
 	return await exec("handlePublicFunction",
 
 		async () => {
-			var user = await exec("getUser", {sessionID});
+			var user = await exec("getLoggedInUser", {sessionID});
 			await exec("deleteUser", {sessionID, email, password});
 
 			await __deleteAssociatedDocuments(user._id);

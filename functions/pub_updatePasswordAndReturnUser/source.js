@@ -5,7 +5,7 @@ exports = async function({email, password, newPassword, sessionID}) {
 		async () => {
 			let params = getPreppedForDatabase({email, password, newPassword, sessionID});
 
-			return await exec("updateAndReturnUserAlreadyLoggedIn",
+			return await exec("updateAndReturnUser",
 				params.sessionID,
 				{
 					email: params.email,

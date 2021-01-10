@@ -6,13 +6,13 @@ exports = async function({email, password, newEmail, sessionID}) {
 			let params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed",
 				{email, password, newEmail, sessionID}
 			);
-			return await exec("updateAndReturnUserAlreadyLoggedIn",
+			return await exec("updateAndReturnUser",
 				params.sessionID,
 				{
 					email: params.email,
 					password: params.password
 				},
-				{$set: {"email": params.newEmail}}
+				{$set: {email: params.newEmail}}
 			);
 		}
 	);

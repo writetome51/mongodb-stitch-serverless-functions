@@ -3,7 +3,7 @@ exports = async function({sessionID}) {
 
 	return await exec("handlePublicFunction",
 		async () => {
-			return await exec("updateUserAlreadyLoggedIn",
+			return await exec("updateUser",
 				sessionID, {}, {$set: {'loggedIn': false}}
 			);
 		}

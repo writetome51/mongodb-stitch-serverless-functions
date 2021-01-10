@@ -1,5 +1,5 @@
 {
-    "name": "updateAndReturnUserAlreadyLoggedIn",
+    "name": "updateUser",
     "private": true,
     "run_as_system": true
 }

@@ -1,4 +1,6 @@
 exports = async function(searchCriteria) {
-	var users = context.functions.execute("getUsersCollection");
+	const {exec} = require("realm-function-exec");
+
+	var users = exec("getUsersCollection");
 	return await users.findOne(searchCriteria);
 };

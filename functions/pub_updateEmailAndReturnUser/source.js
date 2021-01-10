@@ -3,7 +3,7 @@ exports = async function({email, password, newEmail, sessionID}) {
 
 	return await exec("handlePublicFunction",
 		async () => {
-			let params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed",
+			let params = exec("ifHasPasswordOrSecurityQuestionAnswer_getHashed",
 				{email, password, newEmail, sessionID}
 			);
 			return await exec("updateAndReturnUser",

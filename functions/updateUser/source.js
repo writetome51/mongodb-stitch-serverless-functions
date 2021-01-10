@@ -5,7 +5,7 @@ exports = async function(sessionID, uniqueSearchCriteria, updater) {
 	var searchCriteria = mergeObjects(defaultSearchCriteria, uniqueSearchCriteria);
 
 	return await exec("updateDocument",
-		"image-library-app-user", searchCriteria, updater
+		exec("getUsersCollection"), searchCriteria, updater
 	);
 
 

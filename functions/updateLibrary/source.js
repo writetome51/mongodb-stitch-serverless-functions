@@ -1,9 +1,10 @@
 // 'searchCriteria': {_user_id: string, name: string}
 
 exports = async function(searchCriteria, updatingObject) {
+	const {exec} = require('realm-function-exec');
 
-	return await context.functions.execute("updateDocument",
-		"image-library-app-library", searchCriteria, updatingObject
+	return await exec("updateDocument",
+		exec("getLibrariesCollection"), searchCriteria, updatingObject
 	);
 
 };

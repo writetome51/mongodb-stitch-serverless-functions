@@ -13,6 +13,6 @@ exports = async function(_user_id, image) {
 	let updater = {'$set': image.changes};
 
 	return await exec("updateDocument",
-		"image-library-app-image", searchCriteria, updater
+		exec("getImagesCollection"), searchCriteria, updater
 	);
 };

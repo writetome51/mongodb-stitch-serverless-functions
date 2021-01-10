@@ -12,7 +12,7 @@ exports = async function({email, password, securityQuestion}) {
 
 
 	function getRequiredPropertiesAdded(props) {
-		props = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", props);
+		props = exec("ifHasPasswordOrSecurityQuestionAnswer_getHashed", props);
 
 		props['loggedIn'] = true;
 		props['lastLoggedIn'] = new Date();

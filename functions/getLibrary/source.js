@@ -1,8 +1,8 @@
-exports = async function(_user_id, name) {
+exports = async function(searchCriteria) {
 	const {exec} = require("realm-function-exec");
 
 	var libraries = exec("getLibrariesCollection");
-	var library = await libraries.findOne({_user_id, name});
+	var library = await libraries.findOne(searchCriteria);
 
 	if (!(library)) throw new Error("No such library found");
 

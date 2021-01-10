@@ -4,7 +4,7 @@ exports = async function({name, sessionID}) {
 	return await exec("handlePublicFunction",
 		async () => {
 			var user = await exec("getLoggedInUser", {sessionID});
-			return await exec("getLibrary", user._id, name);
+			return await exec("getLibrary", {_user_id: user._id, name});
 		}
 	);
 

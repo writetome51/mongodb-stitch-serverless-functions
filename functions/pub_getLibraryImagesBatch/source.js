@@ -5,40 +5,53 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 			var {_image_ids} = await exec("getLibrary", user._id, name);
 			var dataTotal = _image_ids.length;
 			_image_ids = _image_ids.splice((batchNumber - 1) * batchSize, batchSize);
-			let images = await getImagesInProperOrder();
+			let images = await getImages(_image_ids);
 
-			return await exec("getBatchOfImages",
-				images,
+			return {
+				batch: images,
 				dataTotal
-			);
+			};
 
 
-			async function getImagesInProperOrder() {
-				let imagesCollection = exec("getImagesCollection");
-				let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}})
-					.toArray();
-
-				// Still not clear why, but the Cursor method .toArray() doesn't return Array
-				// prototype. This fixes that:
-				unorderedImages = makeSureItsArray(unorderedImages);
+			async function getImages(_image_ids) {
+				let unorderedImages =  await getImagesFromCollection();
 				return getOrdered(unorderedImages);
 
 
+				async function getImagesFromCollection() {
+					let imagesCollection = exec("getImagesCollection");
+					let unorderedImages = await imagesCollection.find({_id: {$in: _image_ids}})
+						.toArray();
+
+					// .toArray() doesn't return Array prototype. This fixes that:
+					return convertedToArray(unorderedImages);
+
+
+					function convertedToArray(arr) {
+						return [].concat(arr);
+					}
+				}
+
+
 				function getOrdered(unorderedImages) {
-					// The array returned must be in same order as _image_ids.
+					// The array returned must be in same order as `_image_ids`.
+
+					let imagesByID = {};
+
+					for (let idx = 0, len = unorderedImages.length;  idx < len;  ++idx) {
+						let img = unorderedImages[idx];
+						imagesByID[img._id] = img
+					}
+				
 					let ordered = new Array(_image_ids.length);
 					for (let idx = 0, len = _image_ids.length; idx < len; ++idx) {
-						ordered[idx] = unorderedImages.filter(
-							(img) => img._id === _image_ids[idx]
-						)[0];
+						ordered[idx] = imagesByID[_image_ids[idx]];
 					}
 					return ordered;
 				}
 
 
-				function makeSureItsArray(arr) {
-					return [].concat(arr);
-				}
+				
 
 			}
 

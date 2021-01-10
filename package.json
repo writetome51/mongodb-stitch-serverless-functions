@@ -1,0 +1,12 @@
+{
+  "name": "mongodb-realm-serverless-functions",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "keywords": [],
+  "author": "Steve Thompson",
+  "license": "MIT",
+  "dependencies": {
+    "realm-function-exec": "^0.0.1"
+  }
+}

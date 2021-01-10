@@ -1,4 +1,6 @@
 exports = async ({email}) => {
+	const exec = require("realm-function-exec");
+
 	try {
 		// If user doesn't exist, error is triggered.
 		await exec("getUserByEmail", email);
@@ -8,10 +10,4 @@ exports = async ({email}) => {
 		return {success: false};
 	}
 	return {success: true};
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
-
 };

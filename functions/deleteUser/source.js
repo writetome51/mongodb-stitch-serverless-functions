@@ -1,4 +1,5 @@
 exports = async function({sessionID, email, password}) {
+	const exec = require("realm-function-exec");
 
 	var result = await __deleteUser();
 	return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');
@@ -13,11 +14,6 @@ exports = async function({sessionID, email, password}) {
 			email,
 			password
 		});
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

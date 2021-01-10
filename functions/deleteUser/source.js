@@ -1,5 +1,5 @@
 exports = async function({sessionID, email, password}) {
-	const exec = require("realm-function-exec");
+	const {exec} = require("realm-function-exec");
 
 	var result = await __deleteUser();
 	return exec("getMessageFromUpdateOrDeleteResult", result, 'delete');

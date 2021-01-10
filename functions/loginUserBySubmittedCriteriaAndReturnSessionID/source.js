@@ -1,4 +1,6 @@
 exports = async function(searchCriteria, errorMessageIfUserNotFound) {
+	const {exec} = require("realm-function-exec");
+
 	var users = exec("getUsersCollection");
 	var sessionID = BSON.ObjectId().toString();
 
@@ -16,9 +18,4 @@ exports = async function(searchCriteria, errorMessageIfUserNotFound) {
 	}
 	if (result.success) return sessionID;
 	else throw new Error(errorMessageIfUserNotFound);
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
 };

@@ -1,4 +1,6 @@
 exports = async function(_user_id, name) {
+	const {exec} = require("realm-function-exec");
+
 	try {
 		var image = await __getImage();
 	} catch (e) {
@@ -8,7 +10,7 @@ exports = async function(_user_id, name) {
 
 
 	async function __getImage() {
-		var images = context.functions.execute("getImagesCollection");
+		var images = exec("getImagesCollection");
 		var image = await images.findOne({_user_id, name});
 
 		if (!(image)) throw new Error("No such image found");

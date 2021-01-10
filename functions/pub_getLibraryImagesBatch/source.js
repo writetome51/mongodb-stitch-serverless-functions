@@ -1,4 +1,6 @@
 exports = async function({name, batchSize, batchNumber, sessionID}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 		async () => {
 			var user = await exec("getLoggedInUser", {sessionID});
@@ -50,18 +52,10 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 					return ordered;
 				}
 
-
-				
-
 			}
 
 		}
 	);
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
 
 
 };

@@ -2,6 +2,8 @@
 // The properties in `changes` can contain dot-notation.
 
 exports = async function({sessionID, name, changes}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 		async () => {
 			let user = await exec('pub_getUser', {sessionID});
@@ -17,10 +19,5 @@ exports = async function({sessionID, name, changes}) {
 			}
 		}
 	);
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
 
 };

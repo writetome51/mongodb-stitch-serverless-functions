@@ -1,3 +1,4 @@
-exports = function(){
-	return context.functions.execute("getCollection", "image-library-app-library");
+exports = function() {
+	const {exec} = require("realm-function-exec");
+	return exec("getCollection", "image-library-app-library");
 };

@@ -1,4 +1,6 @@
 exports = async function({name, sessionID}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 		async () => {
 			var user = await exec("getLoggedInUser", {sessionID});
@@ -12,11 +14,6 @@ exports = async function({name, sessionID}) {
 	async function __deleteLibrary(name, _user_id) {
 		var libraries = exec("getLibrariesCollection");
 		return await libraries.deleteOne({_user_id, name});
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

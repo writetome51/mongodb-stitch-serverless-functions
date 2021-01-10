@@ -1,4 +1,6 @@
 exports = async function updateDocument(collectionName, searchCriteria, updatingObject) {
+	const {exec} = require("realm-function-exec");
+
 	// These two properties must never be changed:
 	delete updatingObject['$set']['_user_id'];
 	delete updatingObject['$set']['_id'];
@@ -8,10 +10,4 @@ exports = async function updateDocument(collectionName, searchCriteria, updating
 	var result = await collection.updateOne(searchCriteria, updatingObject);
 
 	return exec("getMessageFromUpdateOrDeleteResult", result, 'update');
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
-
 };

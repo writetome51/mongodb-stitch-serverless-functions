@@ -1,6 +1,8 @@
 // 	images: Array<{name, src, description, tags, date, rating, location}>
 
 exports = async function({sessionID, images}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 
 		async () => {
@@ -16,11 +18,6 @@ exports = async function({sessionID, images}) {
 	async function addNewImagesToDB(imageDocs) {
 		const images = exec("getImagesCollection");
 		return await images.insertMany(imageDocs);
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

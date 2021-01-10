@@ -1,4 +1,6 @@
 exports = async function({email, securityQuestion}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 
 		async () => {
@@ -16,11 +18,6 @@ exports = async function({email, securityQuestion}) {
 		submittedQuestion.answer = exec("getHash", submittedQuestion.answer);
 
 		exec("errorIfSecurityQuestionInvalid", storedQuestion, submittedQuestion);
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

@@ -8,7 +8,7 @@ exports = async function(_user_id, imagesToChange) {
 	// 	  }
 	 *******************/
 
-	const exec = require("realm-function-exec");
+	const {exec} = require("realm-function-exec");
 
 	for (let i = 0; i < imagesToChange.length; ++i) {
 		let imageToChange = imagesToChange[i];

@@ -1,4 +1,6 @@
 exports = function(payload, requiredProperties) {
+	const {exec} = require("realm-function-exec");
+
 	var properties = getValidatedRequestProperties(payload, requiredProperties);
 
 	return exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed", properties);
@@ -11,11 +13,6 @@ exports = function(payload, requiredProperties) {
 
 	function getHash(string) {
 		return exec("getHash", string);
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

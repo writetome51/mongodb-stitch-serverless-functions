@@ -1,5 +1,5 @@
 exports = async ({email}) => {
-	const exec = require("realm-function-exec");
+	const {exec} = require("realm-function-exec");
 
 	try {
 		// If user doesn't exist, error is triggered.

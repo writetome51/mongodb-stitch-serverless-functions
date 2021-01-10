@@ -1,4 +1,5 @@
 exports = function(properties) {
+	const {exec} = require("realm-function-exec");
 
 	if (properties.password) properties.password = getHash(properties.password);
 
@@ -12,11 +13,6 @@ exports = function(properties) {
 
 	function getHash(string) {
 		return exec("getHash", string);
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

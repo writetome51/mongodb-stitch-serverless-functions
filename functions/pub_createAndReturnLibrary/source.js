@@ -1,4 +1,6 @@
 exports = async function({name, sessionID}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 
 		async () => {
@@ -9,10 +11,5 @@ exports = async function({name, sessionID}) {
 			if (result.success) return lib;
 		}
 	);
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
 
 };

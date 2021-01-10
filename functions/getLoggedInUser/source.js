@@ -1,4 +1,6 @@
 exports = async function({sessionID}) {
+	const {exec} = require("realm-function-exec");
+
 	var users = exec("getUsersCollection");
 	var user = await users.findOne({sessionID});
 
@@ -6,8 +8,3 @@ exports = async function({sessionID}) {
 	if (!(user) || !(user.loggedIn)) throw new Error("You're not logged in. Log in first");
 	return user;
 };
-
-
-function exec(funcName, ...args) {
-	return context.functions.execute(funcName, ...args);
-}

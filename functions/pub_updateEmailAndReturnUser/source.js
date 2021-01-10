@@ -1,6 +1,7 @@
 exports = async function({email, password, newEmail, sessionID}) {
-	return await exec("handlePublicFunction",
+	const {exec} = require("realm-function-exec");
 
+	return await exec("handlePublicFunction",
 		async () => {
 			let params = exec("ifHasPasswordAndSecurityQuestionAnswer_getHashed",
 				{email, password, newEmail, sessionID}
@@ -15,10 +16,5 @@ exports = async function({email, password, newEmail, sessionID}) {
 			);
 		}
 	);
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
-	}
 
 };

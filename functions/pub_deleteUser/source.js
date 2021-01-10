@@ -1,4 +1,6 @@
 exports = async function({sessionID, email, password}) {
+	const {exec} = require("realm-function-exec");
+
 	return await exec("handlePublicFunction",
 
 		async () => {
@@ -28,11 +30,6 @@ exports = async function({sessionID, email, password}) {
 				`Delete operation in collection ${collectionName} unsuccessful`
 			);
 		}
-	}
-
-
-	function exec(funcName, ...args) {
-		return context.functions.execute(funcName, ...args);
 	}
 
 };

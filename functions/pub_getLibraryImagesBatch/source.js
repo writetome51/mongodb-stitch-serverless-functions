@@ -4,19 +4,22 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 	return await exec("handlePublicFunction",
 		async () => {
 			var user = await exec("getLoggedInUser", {sessionID});
-			var {_image_ids} = await exec("getLibrary", {_user_id: user._id, name});
+			var lib = await exec("getLibrary", {_user_id: user._id, name});
+			var _image_ids = convertedToArray(lib._image_ids);
 			var dataTotal = _image_ids.length;
 			_image_ids = _image_ids.splice((batchNumber - 1) * batchSize, batchSize);
 			let images = await getImages(_image_ids);
 
-			return {
-				batch: images,
-				dataTotal
-			};
+			return {batch: images};
+
+
+			function convertedToArray(arr) {
+				return [].concat(arr);
+			}
 
 
 			async function getImages(_image_ids) {
-				let unorderedImages =  await getImagesFromCollection();
+				let unorderedImages = await getImagesFromCollection();
 				return getOrdered(unorderedImages);
 
 
@@ -29,9 +32,6 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 					return convertedToArray(unorderedImages);
 
 
-					function convertedToArray(arr) {
-						return [].concat(arr);
-					}
 				}
 
 
@@ -40,11 +40,11 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 
 					let imagesByID = {};
 
-					for (let idx = 0, len = unorderedImages.length;  idx < len;  ++idx) {
+					for (let idx = 0, len = unorderedImages.length; idx < len; ++idx) {
 						let img = unorderedImages[idx];
 						imagesByID[img._id] = img
 					}
-				
+
 					let ordered = new Array(_image_ids.length);
 					for (let idx = 0, len = _image_ids.length; idx < len; ++idx) {
 						ordered[idx] = imagesByID[_image_ids[idx]];

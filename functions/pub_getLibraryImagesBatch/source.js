@@ -6,7 +6,6 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 			var user = await exec("getLoggedInUser", {sessionID});
 			var lib = await exec("getLibrary", {_user_id: user._id, name});
 			var _image_ids = convertedToArray(lib._image_ids);
-			var dataTotal = _image_ids.length;
 			_image_ids = _image_ids.splice((batchNumber - 1) * batchSize, batchSize);
 			let images = await getImages(_image_ids);
 

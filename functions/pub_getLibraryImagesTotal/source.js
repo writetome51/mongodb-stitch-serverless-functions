@@ -4,9 +4,9 @@ exports = async function({name, sessionID}) {
 	return await exec("handlePublicFunction",
 		async () => {
 			var user = await exec("getLoggedInUser", {sessionID});
-			var {_image_ids} = await exec("getLibrary", {_user_id: user._id, name});
+			var lib = await exec("getLibrary", {_user_id: user._id, name});
 
-			return {dataTotal: _image_ids.length};
+			return {dataTotal: lib._image_ids.length};
 		}
 	);
 };

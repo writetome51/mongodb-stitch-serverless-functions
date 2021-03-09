@@ -9,7 +9,7 @@ exports = async function({name, batchSize, batchNumber, sessionID}) {
 			_image_ids = _image_ids.splice((batchNumber - 1) * batchSize, batchSize);
 			let images = await getImages(_image_ids);
 
-			return {batch: images};
+			return {images, from: 'library'};
 
 
 			function convertedToArray(arr) {

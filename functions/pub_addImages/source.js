@@ -9,9 +9,12 @@ exports = async function({sessionID, images}) {
 			var user = await exec("getLoggedInUser", {sessionID});
 			var imageDocs = exec("getNewImageDocuments", images, user._id);
 
-			var result = await addNewImagesToDB(imageDocs);
-			//temp:
-			if (result.error) return {error: result.error};
+			try {
+				var result = await addNewImagesToDB(imageDocs);
+			}
+			catch (error){
+				return {error};
+			}
 
 			return exec("getMessageFromInsertResult", result, imageDocs.length);
 		}

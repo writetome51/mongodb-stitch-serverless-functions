@@ -13,7 +13,7 @@ exports = async function({sessionID, images}) {
 				var result = await addNewImagesToDB(imageDocs);
 			}
 			catch (error){
-				return {error};
+				return {error: {message: error.message}};
 			}
 
 			return exec("getMessageFromInsertResult", result, imageDocs.length);

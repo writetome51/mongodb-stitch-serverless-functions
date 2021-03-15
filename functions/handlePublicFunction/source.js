@@ -3,6 +3,6 @@ exports = async function(func) {
 		return await func();
 	}
 	catch (error) {
-		return {error};
+		return {error: {message: error.message}};
 	}
 };
